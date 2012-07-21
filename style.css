@@ -9,10 +9,52 @@ ul, ol, li, p {
 
 body {
   font-family: "jubilat", georgia, serif;
-  line-height: 1.2;
+  line-height: 1.1;
+  padding: 1.0em;
+  background: #E80;
+  color: #FFF;
+  color: #810;
+  
 }
 
 body, h1, h2 {
-  font-size: 24px;
+  font-size: 32px;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+  -webkit-transition: padding-left 0.6s;
+  
+}
+
+a:hover {
+/*  -webkit-transform: translateX(1.0em);*/
+  padding-left: 0.75em;
+  -webkit-transition-duration: 0.2s;
+}
+
+
+h1, h2 {
   font-weight: 600;
 }
+
+
+h2 {
+  margin-top: 1.0em;
+  font-style: italic;
+  font-size: 0.8;
+}
+
+
+h1, h2, p, li {
+  padding: 0.1em 0;
+}
+
+li {
+  list-style: none;
+/*  -webkit-transition: -webkit-transform 0.4s;*/
+}
+
+
+

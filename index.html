@@ -88,11 +88,19 @@ sections:
     <h2>{{ section.title }}</h2>
     <ul>
       {% for item in section.items %}
-        <li>{{ item }}</li>
+        <li><a href="#">{{ item }}</a></li>
       {% endfor %}
     </ul>
   </section>
 {% endfor %}
+
+<script src="js/jquery.min.js"></script>
+<script src="modules/fittext/jquery.fittext.js"></script>
+<script>
+$( function() {
+  // $('h1, h2, p, li').fitText();
+});
+</script>
 
 </body>
 </html>
