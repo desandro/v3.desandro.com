@@ -1,0 +1,98 @@
+---
+sections:
+  - title: Projects
+    items: 
+      - Masonry
+      - Isotope
+      - Close Pixelate
+      - imagesLoaded
+      - Vanilla Masonry
+      - Windex
+      - Neo Vision
+
+  - title: Writing
+    items:
+      - Intro to CSS 3D Transforms
+      - ZUI Site Riot
+
+  - title: Portfolio
+    items:
+      - nclud.com v3
+      - 2011.beercamp.com
+      - 2010.beercamp.com
+      - mashable.com
+      - Oracle iPhone app v1
+      - welovemariokart
+      - textpattern.org
+      - Textpattern admin themes
+
+  - title: Blogs
+    items:
+      - Smallblog
+      - dropshado.ws
+      - Metafizzy
+
+  - title: Speaking
+    items:
+      - 'Mobile Safari: Bring your machete'
+      - Open source ain't free
+      - nclud.com front-end dev
+      - Touchy Feely Development
+      - Motion / Emotion
+
+  - title: Socialize
+    items:
+      - Twitter
+      - GitHub
+      - Flickr
+      - Tumblr
+      - Strava
+      - jsFiddle
+      - Readernaut
+      - Fontstruct
+      - Vimeo
+      - StackOverflow
+      - Dribbble
+      - Delicious
+
+  - title: Ego
+    items:
+      - shop talk show 24
+      - 2011 website of the year
+      - da brook podcast
+
+---
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <title>David DeSandro</title>
+
+  <link href="style.css" rel="stylesheet" />
+
+  <script src="//use.typekit.net/eel3tlp.js"></script>
+  <script>try{Typekit.load();}catch(e){}</script>
+
+
+</head>
+<body>
+
+<h1>David DeSandro</h1>
+<p>Web designer at Twitter</p>
+<p>New York, NY</p>
+<p>Being creative and making things keeps me happy</p>
+
+{% for section in page.sections %}
+  <section>
+    <h2>{{ section.title }}</h2>
+    <ul>
+      {% for item in section.items %}
+        <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endfor %}
+
+</body>
+</html>

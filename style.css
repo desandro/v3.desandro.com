@@ -1,0 +1,18 @@
+/* remove margin and padding */
+
+body,
+h1, h2, h3, h4, h5, h6,
+ul, ol, li, p {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "jubilat", georgia, serif;
+  line-height: 1.2;
+}
+
+body, h1, h2 {
+  font-size: 24px;
+  font-weight: 600;
+}
