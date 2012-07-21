@@ -25,7 +25,7 @@ a {
   color: white;
   text-decoration: none;
   -webkit-transition: padding-left 0.6s;
-  
+  display: inline-block;
 }
 
 a:hover {

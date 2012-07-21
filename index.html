@@ -1,65 +1,84 @@
 ---
 sections:
   - title: Projects
-    items: 
-      - Masonry
-      - Isotope
-      - Close Pixelate
-      - imagesLoaded
-      - Vanilla Masonry
-      - Windex
-      - Neo Vision
+    items:
+      - title: Masonry
+        link: http://masonry.desandro.com
+      - title: Isotope
+        link: http://isotope.metafizzy.co
+      - title: Close Pixelate
+        link: http://close-pixelate.desandro.com
+      - title: Vanilla Masonry
+        link: http://vanilla-masonry.desandro.com
+      - title: Windex
+        link: http://desandro.com/demo/of-windex/
+      - title: Neo Vision
+        link: https://chrome.google.com/webstore/detail/lcckpjpfpmnojpkhlnekhclcfegepaij
 
   - title: Writing
     items:
-      - Intro to CSS 3D Transforms
-      - ZUI Site Riot
-
-  - title: Portfolio
-    items:
-      - nclud.com v3
-      - 2011.beercamp.com
-      - 2010.beercamp.com
-      - mashable.com
-      - Oracle iPhone app v1
-      - welovemariokart
-      - textpattern.org
-      - Textpattern admin themes
+      - title: Intro to CSS 3D Transforms
+        link: http://desandro.github.com/3dtransforms/
+      - title: ZUI Site Riot
+        link: http://desandro.github.com/zui-site-riot/
 
   - title: Blogs
     items:
-      - Smallblog
-      - dropshado.ws
-      - Metafizzy
+      - title: Smallblog
+        link: http://smallblog.desandro.com/
+      - title: dropshado.ws
+        link: http://dropshado.ws
+      - title: Metafizzy
+        link: http://metafizzy.co
 
   - title: Speaking
     items:
-      - 'Mobile Safari: Bring your machete'
-      - Open source ain't free
-      - nclud.com front-end dev
-      - Touchy Feely Development
-      - Motion / Emotion
+      - title: Open source ain't free
+        link: http://desandro.github.com/open-source-aint-free
+      - title: Touchy Feely Development
+        link: http://desandro.github.com/touch-feely-dev
+      - title: nclud.com front-end dev
+        link: http://desandro.github.com/nclud-v3-talk/
+      - title: 'Mobile Safari: Bring your machete'
+        link: http://desandro.github.com/mobile-safari-machete
+      - title: Motion / Emotion
+        link: http://desandro.github.com/motion-emotion
 
   - title: Socialize
     items:
-      - Twitter
-      - GitHub
-      - Flickr
-      - Tumblr
-      - Strava
-      - jsFiddle
-      - Readernaut
-      - Fontstruct
-      - Vimeo
-      - StackOverflow
-      - Dribbble
-      - Delicious
+      - title: Twitter
+        link: http://twitter.com/desandro
+      - title: GitHub
+        link: http://github.com/desandro
+      - title: Flickr
+        link: http://flickr.com/photos/nemoorange/
+      - title: Tumblr
+        link: http://desandro.tumblr.com
+      - title: Strava
+        link: http://app.strava.com/athletes/210990
+      - title: jsFiddle
+        link: http://jsfiddle.net/user/desandro/
+      - title: Readernaut
+        link: http://readernaut.com/desandro/
+      - title: Fontstruct
+        link: http://fontstruct.fontshop.com/fontstructors/nemoorange
+      - title: Delicious
+        link: http://delicious.com/desandro
+      - title: Vimeo
+        link: http://vimeo.com/desandro
+      - title: Dribbble
+        link: http://dribbble.com/players/desandro
+      - title: StackOverflow
+        link: http://stackoverflow.com/users/182183/desandro
 
   - title: Ego
     items:
-      - shop talk show 24
-      - 2011 website of the year
-      - da brook podcast
+      - title: ShopTalk Show podcast, episode 24
+        link: http://shoptalkshow.com/episodes/024-with-david-desandro/
+      - title: '.net Awards 2011: Site of the Year: BeerCamp SXSW 2011'
+        link: http://www.netmagazine.com/features/net-awards-2011-winners
+      - title: 'DaBrook Web Education Podcast: Episode 35'
+        link: http://dabrook.org/required-listening/episode-34-dave-flippin-desandro
 
 ---
 <!doctype html>
@@ -88,19 +107,11 @@ sections:
     <h2>{{ section.title }}</h2>
     <ul>
       {% for item in section.items %}
-        <li><a href="#">{{ item }}</a></li>
+        <li><a href="{{ item.link }}">{{ item.title }}</a></li>
       {% endfor %}
     </ul>
   </section>
 {% endfor %}
-
-<script src="js/jquery.min.js"></script>
-<script src="modules/fittext/jquery.fittext.js"></script>
-<script>
-$( function() {
-  // $('h1, h2, p, li').fitText();
-});
-</script>
 
 </body>
 </html>
