@@ -3,7 +3,7 @@
 **/
 
 
-/*jshint asi: false, curly: true, eqeqeq: true, forin: false, newcap: true, noempty: true, strict: true, undef: true, browser: true */
+/*jshint asi: false, curly: true, devel: true, eqeqeq: true, forin: false, newcap: true, noempty: true, strict: true, undef: true, browser: true */
 
 ( function( window, document, undefined ) {
 
@@ -13,33 +13,53 @@ function setupCharParticles() {
   var splitables = document.querySelectorAll('.split');
   var charCount = 0;
   // split each string into words and then characters
-  var splitable, words, chars, html, word, wordContent;
+  var splitable, words, chars, word, wordContent, fragment, wordElem, charElem;
   for ( var i=0, len = splitables.length; i < len; i++ ) {
-    // reset content
-    html = '';
+    // get words
     splitable = splitables[i];
     words = splitable.textContent.split(' ');
+    // clear out original HTML
+    while ( splitable.firstChild ) {
+      splitable.removeChild( splitable.firstChild );
+    }
+
+    fragment = document.createDocumentFragment();
+
     // split word into characters
     for ( var j=0, wordsLen = words.length; j < wordsLen; j++ ) {
       word = words[j];
-      wordContent = '<span class="word">';
+      wordElem = document.createElement('span');
+      wordElem.className = 'word';
       // wrap each character in a span
       chars = word.split('');
       for ( var k=0, charsLen = chars.length; k < charsLen; k++ ) {
-        wordContent += '<span class="char">' + chars[k] + '</span>';
+        charElem = document.createElement('span');
+        charElem.className = 'char';
+        charElem.textContent = chars[k];
+        wordElem.appendChild( charElem );
         charCount++;
       }
-      wordContent += '</span>';
-      html += wordContent + ' ';
+      fragment.appendChild( wordElem );
+      // add space
+      fragment.appendChild( document.createTextNode(' ') );
     }
-    splitable.innerHTML = html;
+
+    // add splitted content
+    splitable.appendChild( fragment );
   }
   // console.log( charCount );
+}
+
+function onBodyClick( event ) {
+  console.log( event );
+  event.preventDefault();
 }
 
 
 function init() {
   setupCharParticles();
+
+  document.body.addEventListener( 'click', onBodyClick, false );
 }
 
 

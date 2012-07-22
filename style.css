@@ -25,14 +25,14 @@ body, h1, h2 {
 a {
   color: white;
   text-decoration: none;
-  -webkit-transition: padding-left 0.6s;
-  display: inline-block;
+/*  -webkit-transition: padding-left 0.6s;*/
+/*  display: inline-block;*/
 }
 
 a:hover {
 /*  -webkit-transform: translateX(1.0em);*/
-  padding-left: 0.75em;
-  -webkit-transition-duration: 0.2s;
+/*  padding-left: 0.75em;*/
+/*  -webkit-transition-duration: 0.2s;*/
 }
 
 
