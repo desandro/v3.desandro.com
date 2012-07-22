@@ -88,6 +88,8 @@ sections:
 
   <title>David DeSandro</title>
 
+  <meta name="viewport" content="width=device-width" />
+
   <link href="style.css" rel="stylesheet" />
 
   <script src="//use.typekit.net/eel3tlp.js"></script>
@@ -97,21 +99,23 @@ sections:
 </head>
 <body>
 
-<h1>David DeSandro</h1>
-<p>Web designer at Twitter</p>
-<p>New York, NY</p>
-<p>Being creative and making things keeps me happy</p>
+<h1 class="split">David DeSandro</h1>
+<p class="split">Web designer at Twitter</p>
+<p class="split">New York, NY</p>
+<p class="split">Being creative and making things keeps me happy</p>
 
 {% for section in page.sections %}
   <section>
-    <h2>{{ section.title }}</h2>
+    <h2 class="split">{{ section.title }}</h2>
     <ul>
       {% for item in section.items %}
-        <li><a href="{{ item.link }}">{{ item.title }}</a></li>
+        <li><a class="split" href="{{ item.link }}">{{ item.title }}</a></li>
       {% endfor %}
     </ul>
   </section>
 {% endfor %}
+
+<script src="js/script.js"></script>
 
 </body>
 </html>

@@ -10,15 +10,16 @@ ul, ol, li, p {
 body {
   font-family: "jubilat", georgia, serif;
   line-height: 1.1;
-  padding: 1.0em;
+  padding: 0.5em;
   background: #E80;
   color: #FFF;
   color: #810;
-  
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 body, h1, h2 {
-  font-size: 32px;
+  font-size: 28px;
 }
 
 a {
@@ -56,5 +57,23 @@ li {
 /*  -webkit-transition: -webkit-transform 0.4s;*/
 }
 
+.word, .char {
+  display: inline-block;
+}
 
+
+
+/* desktop sizing */
+@media screen and (min-width: 480px) {
+
+  body {
+    padding: 1.0em;
+  }
+
+  body, h1, h2 {
+    font-size: 32px;
+  }
+
+
+}
 
