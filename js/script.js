@@ -41,28 +41,29 @@ CharParticle.prototype.update = function() {
   var dx = mouseX - this.x;
   var dy = mouseY - this.y;
   var d = Math.sqrt( dx*dx + dy*dy );
-  var maxDistance = 200;
+  var maxDistance = 300;
 
   if ( isMouseDown && d < maxDistance ) {
     // dx = mouseX - p.x;
     // dy = mouseY - p.y;
-    var force = 1 - d / maxDistance;
+    var force = (1 - d / maxDistance);
+    force *= force * 10;
     var angle = Math.atan2( dy, dx );
     this.velocityX += Math.cos( angle ) * -force;
     this.velocityY += Math.sin( angle ) * -force;
-  } else {
-    // Attracted to start position
-    this.velocityX += ( 0 - this.deltaX ) * 0.02;
-    this.velocityY += ( 0 - this.deltaY ) * 0.02;
   }
+
+  // Attracted to start position
+  this.velocityX += ( 0 - this.deltaX ) * 0.03;
+  this.velocityY += ( 0 - this.deltaY ) * 0.03;
 
   // Integrate velocity
   this.deltaX += this.velocityX;
   this.deltaY += this.velocityY;
 
   // Apply friction
-  this.velocityX *= 0.95;
-  this.velocityY *= 0.95;
+  this.velocityX *= 0.92;
+  this.velocityY *= 0.92;
 
   // Update position
   // p.domElement.css({
@@ -76,8 +77,12 @@ CharParticle.prototype.update = function() {
   // this.element.style.left = this.deltaX + 'px';
   // this.element.style.top  = this.deltaY + 'px';
 
+  var deltaD = Math.sqrt( this.deltaX * this.deltaX + this.deltaY * this.deltaY );
+  var scale = (deltaD / maxDistance) * 2 + 1;
+
   this.element.style.WebkitTransform =
-    'translate3d(' + this.deltaX + 'px, ' + this.deltaY + 'px, 0)';
+    'translate3d(' + this.deltaX + 'px, ' + this.deltaY + 'px, 0) ' +
+    'scale(' + scale + ')';
 
   if (!this.index) {
     // console.log( ~~this.x, ~~this.y );
