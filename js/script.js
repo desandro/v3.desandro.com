@@ -9,11 +9,15 @@
 
 'use strict';
 
-function setupCharParticles() {
+var charElems = [];
+var charParticles = [];
+
+function setupCharElems() {
   var splitables = document.querySelectorAll('.split');
   var charCount = 0;
   // split each string into words and then characters
   var splitable, words, chars, word, wordContent, fragment, wordElem, charElem;
+
   for ( var i=0, len = splitables.length; i < len; i++ ) {
     // get words
     splitable = splitables[i];
@@ -36,6 +40,7 @@ function setupCharParticles() {
         charElem = document.createElement('span');
         charElem.className = 'char';
         charElem.textContent = chars[k];
+        charElems.push( charElem );
         wordElem.appendChild( charElem );
         charCount++;
       }
@@ -56,8 +61,26 @@ function onBodyClick( event ) {
 }
 
 
+// -------------------------- CharParticle -------------------------- //
+
+function CharParticle( elem ) {
+  this.element = elem;
+  this.width = elem.offsetWidth;
+  this.height = elem.offsetHeight;
+  this.x = elem.offsetLeft + this.width / 2;
+  this.y = elem.offsetTop + this.height / 2;
+}
+
+// -------------------------- init -------------------------- //
+
 function init() {
-  setupCharParticles();
+  setupCharElems();
+  // setup char particles
+  var charParticle;
+  for ( var i=0, len = charElems.length; i < len; i++ ) {
+    charParticle = new CharParticle( charElems[i] );
+  }
+
 
   document.body.addEventListener( 'click', onBodyClick, false );
 }
