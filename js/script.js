@@ -13,6 +13,7 @@ var charElems = [];
 var charParticles = [];
 var mouseX, mouseY;
 var isMouseDown = false;
+var TWO_PI = Math.PI * 2;
 
 // -------------------------- CharParticle -------------------------- //
 
@@ -27,52 +28,66 @@ function CharParticle( elem, index ) {
   this.y = 0;
   this.deltaX = 0;
   this.deltaY = 0;
+  this.angle = 0;
 
   // console.log( this.originX, this.originY );
 
   this.velocityX = 0;
   this.velocityY = 0;
+  this.velocityR = 0; // rotational velocity
 
 }
 
 CharParticle.prototype.update = function() {
-  // console.log('updating');
+
   // Attracted to mouse
   var dx = mouseX - this.x;
   var dy = mouseY - this.y;
   var d = Math.sqrt( dx*dx + dy*dy );
   var maxDistance = 300;
+  var angle = 0;
+  var targetAngle = 0;
 
   if ( isMouseDown && d < maxDistance ) {
     // dx = mouseX - p.x;
     // dy = mouseY - p.y;
     var force = (1 - d / maxDistance);
+
+    angle = Math.atan2( dy, dx );
+    
+    targetAngle = angle + Math.PI / 2;
+    // normalize angle
+    targetAngle = ( targetAngle + TWO_PI * 2 ) % TWO_PI;
+    targetAngle *= force;
+
     force *= force * 10;
-    var angle = Math.atan2( dy, dx );
     this.velocityX += Math.cos( angle ) * -force;
     this.velocityY += Math.sin( angle ) * -force;
+
+    angle = ( angle - Math.PI / 2 + TWO_PI * 2 ) % TWO_PI;
+    var targetAngle = angle;
+
   }
 
   // Attracted to start position
   this.velocityX += ( 0 - this.deltaX ) * 0.03;
   this.velocityY += ( 0 - this.deltaY ) * 0.03;
+  this.velocityR += ( targetAngle - this.angle );
 
   // Integrate velocity
   this.deltaX += this.velocityX;
   this.deltaY += this.velocityY;
+  this.angle += this.velocityR * 0.07;
 
   // Apply friction
   this.velocityX *= 0.92;
   this.velocityY *= 0.92;
-
-  // Update position
-  // p.domElement.css({
-  //     left: p.x,
-  //     top: p.y
-  // });
+  this.velocityR *= 0.92;
 
   this.x = this.originX + this.deltaX;
   this.y = this.originY + this.deltaY;
+
+  // this.angle = angle - Math.PI / 2;
 
   // this.element.style.left = this.deltaX + 'px';
   // this.element.style.top  = this.deltaY + 'px';
@@ -82,7 +97,8 @@ CharParticle.prototype.update = function() {
 
   this.element.style.WebkitTransform =
     'translate3d(' + this.deltaX + 'px, ' + this.deltaY + 'px, 0) ' +
-    'scale(' + scale + ')';
+    'scale(' + scale + ') ' +
+    'rotate(' + this.angle + 'rad)';
 
   if (!this.index) {
     // console.log( ~~this.x, ~~this.y );
