@@ -14,6 +14,7 @@ var charParticles = [];
 var mouseX, mouseY;
 var isMouseDown = false;
 var TWO_PI = Math.PI * 2;
+var maxDistance = 270;
 
 // -------------------------- CharParticle -------------------------- //
 
@@ -30,8 +31,6 @@ function CharParticle( elem, index ) {
   this.deltaY = 0;
   this.angle = 0;
 
-  // console.log( this.originX, this.originY );
-
   this.velocityX = 0;
   this.velocityY = 0;
   this.velocityR = 0; // rotational velocity
@@ -44,7 +43,7 @@ CharParticle.prototype.update = function() {
   var dx = mouseX - this.x;
   var dy = mouseY - this.y;
   var d = Math.sqrt( dx*dx + dy*dy );
-  var maxDistance = 300;
+
   var angle = 0;
   var targetAngle = 0;
 
@@ -54,25 +53,26 @@ CharParticle.prototype.update = function() {
     var force = (1 - d / maxDistance);
 
     angle = Math.atan2( dy, dx );
-    
-    targetAngle = angle + Math.PI / 2;
-    // normalize angle
-    targetAngle = ( targetAngle + TWO_PI * 2 ) % TWO_PI;
-    targetAngle *= force;
+
+    targetAngle = angle - Math.PI / 2;
+    targetAngle *= Math.min( force * 3, 1 );
 
     force *= force * 10;
     this.velocityX += Math.cos( angle ) * -force;
     this.velocityY += Math.sin( angle ) * -force;
 
-    angle = ( angle - Math.PI / 2 + TWO_PI * 2 ) % TWO_PI;
-    var targetAngle = angle;
-
   }
 
   // Attracted to start position
-  this.velocityX += ( 0 - this.deltaX ) * 0.03;
-  this.velocityY += ( 0 - this.deltaY ) * 0.03;
-  this.velocityR += ( targetAngle - this.angle );
+  this.velocityX += ( 0 - this.deltaX ) * 0.015;
+  this.velocityY += ( 0 - this.deltaY ) * 0.015;
+
+  var angleDelta1 = targetAngle - this.angle;
+  var angleDelta2 = ( targetAngle - TWO_PI ) - ( this.angle );
+  var angleDelta = Math.abs( angleDelta1 ) < Math.abs( angleDelta2 ) ?
+    angleDelta1 : angleDelta2;
+
+  this.velocityR += angleDelta;
 
   // Integrate velocity
   this.deltaX += this.velocityX;
@@ -87,22 +87,13 @@ CharParticle.prototype.update = function() {
   this.x = this.originX + this.deltaX;
   this.y = this.originY + this.deltaY;
 
-  // this.angle = angle - Math.PI / 2;
-
-  // this.element.style.left = this.deltaX + 'px';
-  // this.element.style.top  = this.deltaY + 'px';
-
   var deltaD = Math.sqrt( this.deltaX * this.deltaX + this.deltaY * this.deltaY );
   var scale = (deltaD / maxDistance) * 2 + 1;
 
   this.element.style.WebkitTransform =
-    'translate3d(' + this.deltaX + 'px, ' + this.deltaY + 'px, 0) ' +
+    'translate(' + this.deltaX + 'px, ' + this.deltaY + 'px) ' +
     'scale(' + scale + ') ' +
     'rotate(' + this.angle + 'rad)';
-
-  if (!this.index) {
-    // console.log( ~~this.x, ~~this.y );
-  }
 
 };
 
@@ -150,11 +141,6 @@ function setupCharElems() {
     splitable.appendChild( fragment );
   }
   // console.log( charCount );
-}
-
-function onBodyClick( event ) {
-  console.log( event );
-  event.preventDefault();
 }
 
 
