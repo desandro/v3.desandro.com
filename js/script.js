@@ -4,6 +4,7 @@
 
 
 /*jshint asi: false, curly: true, devel: true, eqeqeq: true, forin: false, newcap: true, noempty: true, strict: true, undef: true, browser: true */
+/*global requestAnimationFrame: false */
 
 ( function( window, document, undefined ) {
 
@@ -91,7 +92,7 @@ CharParticle.prototype.update = function() {
   var scale = (deltaD / maxDistance) * 2 + 1;
 
   this.element.style.WebkitTransform =
-    'translate(' + this.deltaX + 'px, ' + this.deltaY + 'px) ' +
+    'translate3d(' + this.deltaX + 'px, ' + this.deltaY + 'px, 0 ) ' +
     'scale(' + scale + ') ' +
     'rotate(' + this.angle + 'rad)';
 
@@ -152,7 +153,8 @@ function animate() {
   for ( var i=0, len = charParticles.length; i < len; i++ ) {
     charParticles[i].update();
   }
-  setTimeout( animate, 20 );
+  requestAnimationFrame( animate );
+  // setTimeout( animate, 20 );
 }
 
 // -------------------------- events -------------------------- //

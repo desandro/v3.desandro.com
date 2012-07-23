@@ -8,13 +8,14 @@ ul, ol, li, p {
 }
 
 body {
-  font-family: "jubilat", georgia, serif;
+  font-family: 'futura-pt', "jubilat", georgia, serif;
   line-height: 1.1;
   padding: 0.5em;
   background: #E80;
   color: #FFF;
   color: #810;
   max-width: 600px;
+  font-weight: 500;
   margin: 0 auto;
 }
 
@@ -37,7 +38,7 @@ a:hover {
 
 
 h1, h2 {
-  font-weight: 600;
+  font-weight: 700;
 }
 
 
@@ -54,6 +55,7 @@ h1, h2, p, li {
 
 li {
   list-style: none;
+  font-weight: 700;
 /*  -webkit-transition: -webkit-transform 0.4s;*/
 }
 
