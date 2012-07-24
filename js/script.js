@@ -163,13 +163,46 @@ function animate() {
   // setTimeout( animate, 20 );
 }
 
+// -------------------------- helpers -------------------------- //
+
+function getLink( elem ) {
+  // walk up DOM, see if elem is <a>
+  while ( elem.nodeType !== 9 ) {
+    if ( elem.nodeName.toLowerCase() === 'a' ) {
+      return elem;
+    }
+    elem = elem.parentNode;
+  }
+  return false;
+}
+
+// -------------------------- sparkleShine -------------------------- //
+
+var sparklyLink;
+var sparklyChars;
+
+function sparkleShine( link ) {
+  // ignore if same link
+  if ( link === sparklyLink ) {
+    return;
+  }
+  // set new sparkleShineLink
+  sparklyLink = link;
+  // get all chars
+  sparklyChars = sparklyLink.querySelectorAll('.char');
+  console.log( sparklyChars.length );
+}
+
 // -------------------------- events -------------------------- //
 
 function onMousedown( event ) {
+  // allow clicks on links
+  if ( getLink( event.target ) ) {
+    return;
+  }
   isMouseDown = true;
   mouseX = event.pageX;
   mouseY = event.pageY;
-  // console.log( mouseX, mouseY );
   event.preventDefault();
   window.addEventListener( 'mousemove', onMousemove, false );
   window.addEventListener( 'mouseup', onMouseup, false );
@@ -187,6 +220,15 @@ function onMouseup( event ) {
   window.removeEventListener( 'mouseup', onMouseup, false );
 }
 
+function onMouseover( event ) {
+  // we only care about mouse over <a>, when mouse isn't down
+  var link = getLink( event.target );
+  if ( isMouseDown || !link ) {
+    return;
+  }
+  sparkleShine( link );
+}
+
 // -------------------------- init -------------------------- //
 
 function init() {
@@ -199,6 +241,9 @@ function init() {
   }
 
   document.addEventListener( 'mousedown', onMousedown, false );
+
+  // mouse over
+  document.addEventListener( 'mouseover', onMouseover, false );
 
   animate();
 
