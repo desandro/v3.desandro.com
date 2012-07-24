@@ -185,9 +185,12 @@ function SparkleShineLink( elem ) {
   this.element = elem;
   this.chars = elem.querySelectorAll('.char');
   this.charsLen = this.chars.length;
-  this.sparkle();
   this.startIndex = 0;
+  this.endIndex = 0;
+  this.colors = [];
   this.isHovered = true;
+  this.isSparkling = true;
+  this.sparkle();
   //
   console.log( 'new sparkle shine link');
 
@@ -227,25 +230,32 @@ SparkleShineLink.prototype.mouseoverHandler = function( event ) {
 
 SparkleShineLink.prototype.sparkle = function() {
 
-
   this.startIndex++;
   // add colors
 
-  var hue = ( hueIndex * 20 ) % 360;
-  var nextColor = 'hsl(' + hue +', 100%, 50% )';
+  var nextColor;
+
+  var hue = ( hueIndex * 15 ) % 360;
+  var nextColor = this.isHovered ? 'hsl(' + hue +', 100%, 50% )' : 'white';
   // // move next color to the front
-  // sparklyColors.unshift( nextColor );
-  // sparklyColors.splice( len - 1, 1 );
-  // hueIndex++;
-  //
-  // for ( i = 0; i < len; i++ ) {
-  //   sparklyChars[i].style.color = sparklyColors[i];
-  // }
+  this.colors.unshift( nextColor );
+
+  var count = Math.min( this.startIndex, this.charsLen );
+
+  for ( var i = this.endIndex; i < count; i ++ ) {
+    this.chars[i].style.color = this.colors[i];
+  }
 
 
+  if ( this.isHovered ) {
+    hueIndex++;
+  }
 
-  hueIndex++;
-  requestAnimationFrame( this.sparkle.bind( this ) );
+  // keep sparkling
+  if ( this.isSparkling ) {
+    requestAnimationFrame( this.sparkle.bind( this ) );
+  }
+
 };
 
 // --------------------------  -------------------------- //
