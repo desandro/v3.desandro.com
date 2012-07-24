@@ -1,0 +1,8 @@
+add Modernizr
+
+cross platform, moz transform, otransform, etc
+
+do transforms if supported
+
+create particles after Typekit has loaded
+
