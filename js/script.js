@@ -185,34 +185,25 @@ function SparkleShineLink( elem ) {
   this.element = elem;
   this.chars = elem.querySelectorAll('.char');
   this.charsLen = this.chars.length;
-  this.startIndex = 0;
   this.endIndex = 0;
+  this.startIndex = 0;
+  this.hueIndex = Math.floor( Math.random() * 360 );
   this.colors = [];
   this.isHovered = true;
   this.isSparkling = true;
   this.sparkle();
-  //
-  console.log( 'new sparkle shine link');
+  // console.log( 'new sparkle shine link');
 
-  // elem.addEventListener( 'mouseout', this, false );
   // detect when hover is over
   document.addEventListener( 'mouseover', this, false );
 }
 
+// allow eventnameHandlers for addEventListener( eventname, this, )
 SparkleShineLink.prototype.handleEvent = function( event ) {
   var method = event.type + 'Handler';
   if ( this[ method ] ) {
     this[ method ]( event );
   }
-};
-
-SparkleShineLink.prototype.mouseoutHandler = function( event ) {
-  // listen only for mousing out of the link
-  console.log(event.type, event );
-  if ( event.target !== this.element ) {
-    return;
-  }
-  console.log('mouse out');
 };
 
 
@@ -221,7 +212,7 @@ SparkleShineLink.prototype.mouseoverHandler = function( event ) {
   if ( this.element.contains( event.target ) ) {
     return;
   }
-  console.log('end hover');
+  // console.log('end hover');
   this.isHovered = false;
   document.removeEventListener('mouseover', this, false );
 };
@@ -230,72 +221,46 @@ SparkleShineLink.prototype.mouseoverHandler = function( event ) {
 
 SparkleShineLink.prototype.sparkle = function() {
 
-  this.startIndex++;
+  this.endIndex = Math.min( this.endIndex + 1, this.charsLen );
+
   // add colors
 
-  var nextColor;
-
-  var hue = ( hueIndex * 15 ) % 360;
+  var hue = ( this.hueIndex * 20 ) % 360;
   var nextColor = this.isHovered ? 'hsl(' + hue +', 100%, 50% )' : 'white';
   // // move next color to the front
   this.colors.unshift( nextColor );
-
-  var count = Math.min( this.startIndex, this.charsLen );
-
-  for ( var i = this.endIndex; i < count; i ++ ) {
+  // change colors of characters
+  for ( var i = this.startIndex; i < this.endIndex; i ++ ) {
     this.chars[i].style.color = this.colors[i];
   }
 
-
   if ( this.isHovered ) {
-    hueIndex++;
+    this.hueIndex++;
+  } else {
+    // increment startIndex, so that rainbow runs through rest of chars
+    this.startIndex = Math.min( this.startIndex + 1, this.charsLen );
   }
+
+  // stop sparkling if there are no more chars to change
+  this.isSparkling = this.startIndex !== this.charsLen;
 
   // keep sparkling
   if ( this.isSparkling ) {
     requestAnimationFrame( this.sparkle.bind( this ) );
+  } else {
+    this.die();
+    // console.log('stop sparkling');
   }
 
 };
 
-// --------------------------  -------------------------- //
-
-
-var sparklyLink;
-var sparklyChars;
-var sparklyColors;
-var isSparkleShining = false;
-
-function sparkleShine( link ) {
-  // ignore if same link
-  if ( link === sparklyLink ) {
-    return;
+// sparkling has ended, do some clean-up
+// prolly unecessary
+SparkleShineLink.prototype.die = function() {
+  for ( var prop in this ) {
+    delete this[ prop ];
   }
-  // set new sparkleShineLink
-  new SparkleShineLink( link );
-  sparklyLink = link;
-  // isSparkleShining = true;
-  // // get all chars
-  // sparklyChars = sparklyLink.querySelectorAll('.char');
-  // var len = sparklyChars.length;
-  // // console.log(  );
-  //
-  // sparklyColors = [];
-  // for ( var i = 0; i < len; i++ ) {
-  //   sparklyColors.push('#FFF');
-  // }
-  //
-  // var hue = ( hueIndex * 20 ) % 360;
-  // var nextColor = 'hsl(' + hue +', 100%, 50% )';
-  // // move next color to the front
-  // sparklyColors.unshift( nextColor );
-  // sparklyColors.splice( len - 1, 1 );
-  // hueIndex++;
-  //
-  // for ( i = 0; i < len; i++ ) {
-  //   sparklyChars[i].style.color = sparklyColors[i];
-  // }
-}
+};
 
 // -------------------------- events -------------------------- //
 
@@ -330,7 +295,9 @@ function onMouseover( event ) {
   if ( isMouseDown || !link ) {
     return;
   }
-  sparkleShine( link );
+
+  new SparkleShineLink( link );
+
 }
 
 // -------------------------- init -------------------------- //
