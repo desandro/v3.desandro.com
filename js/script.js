@@ -178,8 +178,83 @@ function getLink( elem ) {
 
 // -------------------------- sparkleShine -------------------------- //
 
+var hueIndex = 0;
+
+
+function SparkleShineLink( elem ) {
+  this.element = elem;
+  this.chars = elem.querySelectorAll('.char');
+  this.charsLen = this.chars.length;
+  this.sparkle();
+  this.startIndex = 0;
+  this.isHovered = true;
+  //
+  console.log( 'new sparkle shine link');
+
+  // elem.addEventListener( 'mouseout', this, false );
+  // detect when hover is over
+  document.addEventListener( 'mouseover', this, false );
+}
+
+SparkleShineLink.prototype.handleEvent = function( event ) {
+  var method = event.type + 'Handler';
+  if ( this[ method ] ) {
+    this[ method ]( event );
+  }
+};
+
+SparkleShineLink.prototype.mouseoutHandler = function( event ) {
+  // listen only for mousing out of the link
+  console.log(event.type, event );
+  if ( event.target !== this.element ) {
+    return;
+  }
+  console.log('mouse out');
+};
+
+
+SparkleShineLink.prototype.mouseoverHandler = function( event ) {
+  // keep listening if we have only hovered over a descendent element
+  if ( this.element.contains( event.target ) ) {
+    return;
+  }
+  console.log('end hover');
+  this.isHovered = false;
+  document.removeEventListener('mouseover', this, false );
+};
+
+// ----- actions ----- //
+
+SparkleShineLink.prototype.sparkle = function() {
+
+
+  this.startIndex++;
+  // add colors
+
+  var hue = ( hueIndex * 20 ) % 360;
+  var nextColor = 'hsl(' + hue +', 100%, 50% )';
+  // // move next color to the front
+  // sparklyColors.unshift( nextColor );
+  // sparklyColors.splice( len - 1, 1 );
+  // hueIndex++;
+  //
+  // for ( i = 0; i < len; i++ ) {
+  //   sparklyChars[i].style.color = sparklyColors[i];
+  // }
+
+
+
+  hueIndex++;
+  requestAnimationFrame( this.sparkle.bind( this ) );
+};
+
+// --------------------------  -------------------------- //
+
+
 var sparklyLink;
 var sparklyChars;
+var sparklyColors;
+var isSparkleShining = false;
 
 function sparkleShine( link ) {
   // ignore if same link
@@ -187,10 +262,29 @@ function sparkleShine( link ) {
     return;
   }
   // set new sparkleShineLink
+  new SparkleShineLink( link );
   sparklyLink = link;
-  // get all chars
-  sparklyChars = sparklyLink.querySelectorAll('.char');
-  console.log( sparklyChars.length );
+  // isSparkleShining = true;
+  // // get all chars
+  // sparklyChars = sparklyLink.querySelectorAll('.char');
+  // var len = sparklyChars.length;
+  // // console.log(  );
+  //
+  // sparklyColors = [];
+  // for ( var i = 0; i < len; i++ ) {
+  //   sparklyColors.push('#FFF');
+  // }
+  //
+  // var hue = ( hueIndex * 20 ) % 360;
+  // var nextColor = 'hsl(' + hue +', 100%, 50% )';
+  // // move next color to the front
+  // sparklyColors.unshift( nextColor );
+  // sparklyColors.splice( len - 1, 1 );
+  // hueIndex++;
+  //
+  // for ( i = 0; i < len; i++ ) {
+  //   sparklyChars[i].style.color = sparklyColors[i];
+  // }
 }
 
 // -------------------------- events -------------------------- //
