@@ -57,33 +57,39 @@ CharParticle.prototype.update = function() {
 
     targetAngle = angle - Math.PI / 2;
     targetAngle *= Math.min( force * 3, 1 );
+    // pick the shorter of the two angles
+    var absDiff = Math.abs( targetAngle - this.angle );
+    if ( Math.abs( (targetAngle - TWO_PI) - this.angle ) < absDiff ) {
+      targetAngle -= TWO_PI;
+    } else if ( Math.abs( (targetAngle + TWO_PI) - this.angle ) < absDiff ) {
+      targetAngle += TWO_PI;
+    }
 
-    force *= force * 10;
+
+    force *= force * 3;
     this.velocityX += Math.cos( angle ) * -force;
     this.velocityY += Math.sin( angle ) * -force;
 
   }
+  // normalize angle
+  this.angle = this.angle % TWO_PI;
 
   // Attracted to start position
-  this.velocityX += ( 0 - this.deltaX ) * 0.015;
-  this.velocityY += ( 0 - this.deltaY ) * 0.015;
+  this.velocityX += ( 0 - this.deltaX ) * 0.005;
+  this.velocityY += ( 0 - this.deltaY ) * 0.005;
 
-  var angleDelta1 = targetAngle - this.angle;
-  var angleDelta2 = ( targetAngle - TWO_PI ) - ( this.angle );
-  var angleDelta = Math.abs( angleDelta1 ) < Math.abs( angleDelta2 ) ?
-    angleDelta1 : angleDelta2;
-
-  this.velocityR += angleDelta;
+  this.velocityR += targetAngle - this.angle;
 
   // Integrate velocity
   this.deltaX += this.velocityX;
   this.deltaY += this.velocityY;
-  this.angle += this.velocityR * 0.07;
+  this.angle += this.velocityR * 0.02;
+
 
   // Apply friction
-  this.velocityX *= 0.92;
-  this.velocityY *= 0.92;
-  this.velocityR *= 0.92;
+  this.velocityX *= 0.95;
+  this.velocityY *= 0.95;
+  this.velocityR *= 0.95;
 
   this.x = this.originX + this.deltaX;
   this.y = this.originY + this.deltaY;
