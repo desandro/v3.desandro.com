@@ -32,6 +32,7 @@ function CharParticle( elem, index ) {
   this.deltaX = 0;
   this.deltaY = 0;
   this.angle = 0;
+  this.scale = 1;
 
   this.velocityX = 0;
   this.velocityY = 0;
@@ -265,20 +266,10 @@ SparkleShineLink.prototype.sparkle = function() {
   // keep sparkling
   if ( this.isSparkling ) {
     requestAnimationFrame( this.sparkle.bind( this ) );
-  } else {
-    this.die();
-    // console.log('stop sparkling');
   }
 
 };
 
-// sparkling has ended, do some clean-up
-// prolly unecessary
-SparkleShineLink.prototype.die = function() {
-  for ( var prop in this ) {
-    delete this[ prop ];
-  }
-};
 
 // -------------------------- events -------------------------- //
 

@@ -1,8 +1,13 @@
 <!-- add Modernizr -->
 
-cross platform, moz transform, otransform, etc
+<!-- cross platform, moz transform, otransform, etc -->
 
-do transforms if supported
+<!-- do transforms if supported -->
 
 create particles after Typekit has loaded
 
+fade in content after typekit has loaded
+
+don't cycle through particles if at rest
+
+iOS support
