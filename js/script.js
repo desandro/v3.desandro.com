@@ -17,6 +17,7 @@ var isMouseDown = false;
 var TWO_PI = Math.PI * 2;
 var maxDistance = 270;
 var transformProp = Modernizr.prefixed('transform');
+var isAllSettled = true;
 
 // -------------------------- CharParticle -------------------------- //
 
@@ -35,6 +36,9 @@ function CharParticle( elem, index ) {
   this.velocityX = 0;
   this.velocityY = 0;
   this.velocityR = 0; // rotational velocity
+
+  this.isSettled = true;
+  this.wasSettled = true;
 
 }
 
@@ -94,6 +98,25 @@ CharParticle.prototype.update = function() {
   var deltaD = Math.sqrt( this.x * this.x + this.y * this.y );
   this.scale = (deltaD / maxDistance) * 2 + 1;
 
+  // round off values
+  this.x = Math.round( this.x * 1000 ) * 0.001;
+  this.y = Math.round( this.y * 1000 ) * 0.001;
+  this.angle = Math.round( this.angle * 10000 ) * 0.0001;
+  this.scale = Math.round( this.scale * 10000 ) * 0.0001;
+
+  // check if position vars are close to origin
+  var isSettled = Math.abs( this.x ) < 0.02 && Math.abs( this.y ) < 0.02 &&
+    Math.abs( this.angle ) < 0.002 && Math.abs( this.scale - 1 ) < 0.02;
+
+  // settled = settled this frame AND settled last frame
+  this.isSettled = this.wasSettled && isSettled;
+  // check if particles are settled for this frame
+  if ( isThisFrameSettled ) {
+    isThisFrameSettled = this.isSettled;
+  }
+  // next time, for previous frame
+  this.wasSettled = isSettled;
+
   this.render();
 
 };
@@ -106,14 +129,14 @@ CharParticle.prototype.render = !Modernizr.csstransforms ?
   } : Modernizr.csstransforms3d ?
   // 3d transforms
   function() {
-    this.element.style[ transformProp ] =
+    this.element.style[ transformProp ] = this.isSettled ? 'none' :
       'translate3d(' + this.x + 'px, ' + this.y + 'px, 0 ) ' +
       'scale(' + this.scale + ') ' +
       'rotate(' + this.angle + 'rad)';
   } :
   // 2d transforms
   function() {
-    this.element.style[ transformProp ] =
+    this.element.style[ transformProp ] = this.isSettled ? 'none' :
       'translate(' + this.x + 'px, ' + this.y + 'px ) ' +
       'scale(' + this.scale + ') ' +
       'rotate(' + this.angle + 'rad)';
@@ -167,11 +190,17 @@ function setupCharElems() {
 
 // -------------------------- animation -------------------------- //
 
+var isThisFrameSettled = false;
+
 function animate() {
   // console.log('animate');
   // console.log( charParticles );
-  for ( var i=0, len = charParticles.length; i < len; i++ ) {
-    charParticles[i].update();
+  if ( !isAllSettled ) {
+    isThisFrameSettled = true;
+    for ( var i=0, len = charParticles.length; i < len; i++ ) {
+      charParticles[i].update();
+    }
+    isAllSettled = isThisFrameSettled;
   }
   requestAnimationFrame( animate );
   // setTimeout( animate, 20 );
@@ -274,6 +303,7 @@ function onMousedown( event ) {
     return;
   }
   isMouseDown = true;
+  isAllSettled = false;
   mouseX = event.pageX;
   mouseY = event.pageY;
   event.preventDefault();
