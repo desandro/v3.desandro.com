@@ -102,13 +102,26 @@ CharParticle.prototype.update = function() {
 
 };
 
-CharParticle.prototype.render = function() {
-  this.element.style[ transformProp ] =
-    'translate3d(' + this.deltaX + 'px, ' + this.deltaY + 'px, 0 ) ' +
-    'scale(' + this.scale + ') ' +
-    'rotate(' + this.angle + 'rad)';
-};
-
+CharParticle.prototype.render = !Modernizr.csstransforms ?
+  // absolute left/top positioning
+  function() {
+    this.element.style.left = this.deltaX + 'px';
+    this.element.style.top  = this.deltaY + 'px';
+  } : Modernizr.csstransforms3d ?
+  // 3d transforms
+  function() {
+    this.element.style[ transformProp ] =
+      'translate3d(' + this.deltaX + 'px, ' + this.deltaY + 'px, 0 ) ' +
+      'scale(' + this.scale + ') ' +
+      'rotate(' + this.angle + 'rad)';
+  } :
+  // 2d transforms
+  function() {
+    this.element.style[ transformProp ] =
+      'translate(' + this.deltaX + 'px, ' + this.deltaY + 'px ) ' +
+      'scale(' + this.scale + ') ' +
+      'rotate(' + this.angle + 'rad)';
+  };
 
 // -------------------------- setupCharElems -------------------------- //
 
