@@ -4,9 +4,9 @@
 
 
 /*jshint asi: false, curly: true, devel: true, eqeqeq: true, forin: false, newcap: true, noempty: true, strict: true, undef: true, browser: true */
-/*global requestAnimationFrame: false */
+/*global Modernizr: false, requestAnimationFrame: false */
 
-( function( window, document, undefined ) {
+( function( window, document, Modernizr, undefined ) {
 
 'use strict';
 
@@ -16,6 +16,7 @@ var mouseX, mouseY;
 var isMouseDown = false;
 var TWO_PI = Math.PI * 2;
 var maxDistance = 270;
+var transformProp = Modernizr.prefixed('transform');
 
 // -------------------------- CharParticle -------------------------- //
 
@@ -95,13 +96,17 @@ CharParticle.prototype.update = function() {
   this.y = this.originY + this.deltaY;
 
   var deltaD = Math.sqrt( this.deltaX * this.deltaX + this.deltaY * this.deltaY );
-  var scale = (deltaD / maxDistance) * 2 + 1;
+  this.scale = (deltaD / maxDistance) * 2 + 1;
 
-  this.element.style.WebkitTransform =
+  this.render();
+
+};
+
+CharParticle.prototype.render = function() {
+  this.element.style[ transformProp ] =
     'translate3d(' + this.deltaX + 'px, ' + this.deltaY + 'px, 0 ) ' +
-    'scale(' + scale + ') ' +
+    'scale(' + this.scale + ') ' +
     'rotate(' + this.angle + 'rad)';
-
 };
 
 
@@ -225,7 +230,7 @@ SparkleShineLink.prototype.sparkle = function() {
 
   // add colors
 
-  var hue = ( this.hueIndex * 20 ) % 360;
+  var hue = ( this.hueIndex * 10 ) % 360;
   var nextColor = this.isHovered ? 'hsl(' + hue +', 100%, 50% )' : 'white';
   // // move next color to the front
   this.colors.unshift( nextColor );
@@ -324,4 +329,4 @@ function init() {
 window.addEventListener( 'DOMContentLoaded', init, false );
 
 
-})( window, document );
+})( window, document, Modernizr );

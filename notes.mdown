@@ -1,4 +1,4 @@
-add Modernizr
+<!-- add Modernizr -->
 
 cross platform, moz transform, otransform, etc
 
