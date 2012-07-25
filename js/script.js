@@ -29,8 +29,6 @@ function CharParticle( elem, index ) {
   this.originY = elem.offsetTop + this.height / 2;
   this.x = 0;
   this.y = 0;
-  this.deltaX = 0;
-  this.deltaY = 0;
   this.angle = 0;
   this.scale = 1;
 
@@ -43,8 +41,8 @@ function CharParticle( elem, index ) {
 CharParticle.prototype.update = function() {
 
   // Attracted to mouse
-  var dx = mouseX - this.x;
-  var dy = mouseY - this.y;
+  var dx = mouseX - ( this.originX + this.x );
+  var dy = mouseY - ( this.originY + this.y );
   var d = Math.sqrt( dx*dx + dy*dy );
 
   var angle = 0;
@@ -77,14 +75,14 @@ CharParticle.prototype.update = function() {
   this.angle = this.angle % TWO_PI;
 
   // Attracted to start position
-  this.velocityX += ( 0 - this.deltaX ) * 0.005;
-  this.velocityY += ( 0 - this.deltaY ) * 0.005;
+  this.velocityX += ( 0 - this.x ) * 0.005;
+  this.velocityY += ( 0 - this.y ) * 0.005;
 
   this.velocityR += targetAngle - this.angle;
 
   // Integrate velocity
-  this.deltaX += this.velocityX;
-  this.deltaY += this.velocityY;
+  this.x += this.velocityX;
+  this.y += this.velocityY;
   this.angle += this.velocityR * 0.02;
 
 
@@ -93,10 +91,7 @@ CharParticle.prototype.update = function() {
   this.velocityY *= 0.95;
   this.velocityR *= 0.95;
 
-  this.x = this.originX + this.deltaX;
-  this.y = this.originY + this.deltaY;
-
-  var deltaD = Math.sqrt( this.deltaX * this.deltaX + this.deltaY * this.deltaY );
+  var deltaD = Math.sqrt( this.x * this.x + this.y * this.y );
   this.scale = (deltaD / maxDistance) * 2 + 1;
 
   this.render();
@@ -106,20 +101,20 @@ CharParticle.prototype.update = function() {
 CharParticle.prototype.render = !Modernizr.csstransforms ?
   // absolute left/top positioning
   function() {
-    this.element.style.left = this.deltaX + 'px';
-    this.element.style.top  = this.deltaY + 'px';
+    this.element.style.left = this.x + 'px';
+    this.element.style.top  = this.y + 'px';
   } : Modernizr.csstransforms3d ?
   // 3d transforms
   function() {
     this.element.style[ transformProp ] =
-      'translate3d(' + this.deltaX + 'px, ' + this.deltaY + 'px, 0 ) ' +
+      'translate3d(' + this.x + 'px, ' + this.y + 'px, 0 ) ' +
       'scale(' + this.scale + ') ' +
       'rotate(' + this.angle + 'rad)';
   } :
   // 2d transforms
   function() {
     this.element.style[ transformProp ] =
-      'translate(' + this.deltaX + 'px, ' + this.deltaY + 'px ) ' +
+      'translate(' + this.x + 'px, ' + this.y + 'px ) ' +
       'scale(' + this.scale + ') ' +
       'rotate(' + this.angle + 'rad)';
   };
