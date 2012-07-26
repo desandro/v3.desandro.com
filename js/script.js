@@ -18,6 +18,7 @@ var TWO_PI = Math.PI * 2;
 var maxDistance = 270;
 var transformProp = Modernizr.prefixed('transform');
 var isAllSettled = true;
+var hoveredLink;
 
 // -------------------------- CharParticle -------------------------- //
 
@@ -257,6 +258,7 @@ SparkleShineLink.prototype.mouseoverHandler = function( event ) {
   }
   // console.log('end hover');
   this.isHovered = false;
+  hoveredLink = null;
   document.removeEventListener('mouseover', this, false );
 };
 
@@ -326,12 +328,12 @@ function onMouseup( event ) {
 function onMouseover( event ) {
   // we only care about mouse over <a>, when mouse isn't down
   var link = getLink( event.target );
-  if ( isMouseDown || !link ) {
+  if ( isMouseDown || !link || link === hoveredLink ) {
     return;
   }
-
+  // sparkle-shine that link
+  hoveredLink = link;
   new SparkleShineLink( link );
-
 }
 
 // -------------------------- init -------------------------- //
