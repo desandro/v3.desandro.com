@@ -8,34 +8,35 @@ ul, ol, li, p {
 }
 
 body {
-  font-family: 'futura-pt', "jubilat", georgia, serif;
+  font-family: 'futura-pt', Futura, sans-serif;
   line-height: 1.1;
   padding: 0.5em;
   background: #E80;
   color: #FFF;
   color: #810;
-  max-width: 600px;
+  max-width: 640px;
   font-weight: 500;
   margin: 0 auto;
 }
 
 body, h1, h2 {
-  font-size: 28px;
+  font-size: 26px;
 }
 
 a {
   color: white;
   text-decoration: none;
-/*  -webkit-transition: padding-left 0.6s;*/
-/*  display: inline-block;*/
 }
 
 a:hover {
-/*  -webkit-transform: translateX(1.0em);*/
-/*  padding-left: 0.75em;*/
-/*  -webkit-transition-duration: 0.2s;*/
 }
 
+
+#intro img {
+  width: 200px;
+  float: right;
+  border-radius: 100px 100px 0 0;
+}
 
 h1, h2 {
   font-weight: 700;
@@ -45,7 +46,6 @@ h1, h2 {
 h2 {
   margin-top: 1.0em;
   font-style: italic;
-  font-size: 0.8;
 }
 
 
@@ -68,6 +68,8 @@ li {
   position: relative;
 }
 
+
+.credo { font-style: italic; }
 
 /* desktop sizing */
 @media screen and (min-width: 480px) {
