@@ -20,6 +20,12 @@ var transformProp = Modernizr.prefixed('transform');
 var isAllSettled = true;
 var hoveredLink;
 
+// -------------------------- sniff -------------------------- //
+
+/* please forgive me for this, but Firefox is too slow to use transforms */
+
+var isFirefox = navigator.userAgent.indexOf('Firefox') !== -1;
+
 // -------------------------- CharParticle -------------------------- //
 
 function CharParticle( elem, index ) {
@@ -122,7 +128,7 @@ CharParticle.prototype.update = function() {
 
 };
 
-CharParticle.prototype.render = !Modernizr.csstransforms ?
+CharParticle.prototype.render = !Modernizr.csstransforms || isFirefox ?
   // absolute left/top positioning
   function() {
     this.element.style.left = this.x + 'px';
