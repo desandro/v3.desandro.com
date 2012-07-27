@@ -29,10 +29,6 @@ var isFirefox = navigator.userAgent.indexOf('Firefox') !== -1;
 function CharParticle( elem, index ) {
   this.index = index;
   this.element = elem;
-  this.width = elem.offsetWidth;
-  this.height = elem.offsetHeight;
-  this.originX = elem.offsetLeft + this.width / 2;
-  this.originY = elem.offsetTop + this.height / 2;
   this.x = 0;
   this.y = 0;
   this.angle = 0;
@@ -45,8 +41,19 @@ function CharParticle( elem, index ) {
   this.isSettled = true;
   this.wasSettled = true;
 
+  this.updatePosition();
+
 }
 
+CharParticle.prototype.updatePosition = function() {
+  var elem = this.element;
+  this.width = elem.offsetWidth;
+  this.height = elem.offsetHeight;
+  this.originX = elem.offsetLeft + this.width / 2;
+  this.originY = elem.offsetTop + this.height / 2;
+};
+
+// update position and transform based on animation and cursor interaction
 CharParticle.prototype.update = function() {
 
   // Attracted to mouse
@@ -192,12 +199,21 @@ function animate() {
     isAllSettled = isThisFrameSettled;
   }
   requestAnimationFrame( animate );
-  // setTimeout( animate, 20 );
 }
 
 // -------------------------- initCharParticles -------------------------- //
 
+var areCharParticlesInited = false;
+
 DD.initCharParticles = function () {
+  // if already inited, just update positions
+  if ( areCharParticlesInited ) {
+    for ( var j=0, particlesLen = charParticles.length; j < particlesLen; j++ ) {
+      charParticles[j].updatePosition();
+    }
+    return;
+  }
+
   console.log('init char particles');
   // setup char particles
   var charParticle;
@@ -209,6 +225,8 @@ DD.initCharParticles = function () {
   document.addEventListener( 'mousedown', onMousedown, false );
   // start animation
   animate();
+
+  areCharParticlesInited = true;
 
 };
 
