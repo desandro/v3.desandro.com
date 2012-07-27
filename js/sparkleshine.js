@@ -18,6 +18,10 @@ function SparkleShineLink( elem ) {
   this.element = elem;
   this.chars = elem.querySelectorAll('.char');
   this.charsLen = this.chars.length;
+  // don't procced if no char elems
+  if ( !this.charsLen ) {
+    return;
+  }
   this.endIndex = 0;
   this.startIndex = 0;
   this.hueIndex = Math.floor( Math.random() * 360 );
@@ -26,6 +30,9 @@ function SparkleShineLink( elem ) {
   this.isSparkling = true;
   this.sparkle();
   // console.log( 'new sparkle shine link');
+
+  // only one hoverLink at a time
+  hoveredLink = elem;
 
   // detect when hover is over
   document.addEventListener( 'mouseover', this, false );
@@ -94,8 +101,8 @@ DD.onMouseover = function ( event ) {
   if ( DD.isMouseDown || !link || link === hoveredLink ) {
     return;
   }
+
   // sparkle-shine that link
-  hoveredLink = link;
   new SparkleShineLink( link );
 };
 

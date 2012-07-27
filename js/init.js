@@ -55,6 +55,16 @@ function setupCharElems() {
   // console.log( charCount );
 }
 
+// -------------------------- email link -------------------------- //
+
+var emailLink;
+
+function onEmailClick( event ) {
+  emailLink.textContent = 'address@desandro.com';
+  emailLink.href = 'mailto:address@desandro.com';
+  event.preventDefault();
+}
+
 
 // -------------------------- init -------------------------- //
 
@@ -70,6 +80,9 @@ function init() {
 
   // mouse over for sparkleShine
   document.addEventListener( 'mouseover', DD.onMouseover, false );
+
+  emailLink = document.getElementById('email');
+  emailLink.addEventListener( 'click', onEmailClick, false );
 
   isInited = true;
 }
