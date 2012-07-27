@@ -19,6 +19,22 @@ body {
   margin: 0 auto;
 }
 
+/* fade in content when fonts are ready */
+.js body {
+  opacity: 0;
+  -webkit-transition: opacity 0.8s;
+     -moz-transition: opacity 0.8s;
+      -ms-transition: opacity 0.8s;
+       -o-transition: opacity 0.8s;
+          transition: opacity 0.8s;
+}
+
+.js.wf-inactive body,
+.js.wf-active body {
+  opacity: 1;
+}
+
+
 body, h1, h2 {
   font-size: 26px;
 }
@@ -31,12 +47,13 @@ a {
 a:hover {
 }
 
-
 #intro img {
-  width: 200px;
+  width: 140px;
   float: right;
-  border-radius: 100px 100px 0 0;
+  border-radius: 70px 70px 0 0;
+  margin: 0 0 10px 10px;
 }
+
 
 h1, h2 {
   font-weight: 700;
@@ -56,7 +73,6 @@ h1, h2, p, li {
 li {
   list-style: none;
   font-weight: 700;
-/*  -webkit-transition: -webkit-transform 0.4s;*/
 }
 
 .word, .char {
@@ -82,6 +98,10 @@ li {
     font-size: 32px;
   }
 
+  #intro img {
+    width: 200px;
+    border-radius: 100px 100px 0 0;
+  }
 
 }
 

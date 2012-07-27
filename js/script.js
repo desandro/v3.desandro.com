@@ -4,7 +4,7 @@
 
 
 /*jshint asi: false, curly: true, devel: true, eqeqeq: true, forin: false, newcap: true, noempty: true, strict: true, undef: true, browser: true */
-/*global Modernizr: false, requestAnimationFrame: false */
+/*global Modernizr: false, requestAnimationFrame: false, Typekit: false */
 
 ( function( window, document, Modernizr, undefined ) {
 
@@ -15,7 +15,7 @@ var charParticles = [];
 var mouseX, mouseY;
 var isMouseDown = false;
 var TWO_PI = Math.PI * 2;
-var maxDistance = 270;
+var maxDistance = 285;
 var transformProp = Modernizr.prefixed('transform');
 var isAllSettled = true;
 var hoveredLink;
@@ -342,28 +342,93 @@ function onMouseover( event ) {
   new SparkleShineLink( link );
 }
 
-// -------------------------- init -------------------------- //
 
-function init() {
-  setupCharElems();
+// -------------------------- typekit -------------------------- //
+
+function initCharParticles() {
+  console.log('init char particles');
   // setup char particles
   var charParticle;
   for ( var i=0, len = charElems.length; i < len; i++ ) {
     charParticle = new CharParticle( charElems[i], i );
     charParticles.push( charParticle );
   }
-
+  // listen for mouse down
   document.addEventListener( 'mousedown', onMousedown, false );
-
-  // mouse over
-  document.addEventListener( 'mouseover', onMouseover, false );
-
+  // start animation
   animate();
 
+}
+
+( function initTypekit() {
+  console.log('init Typekit');
+  var config = {
+    kitId: 'eel3tlp',
+    active: function() {
+      console.log('typekit active');
+      setTimeout( initCharParticles, 20 );
+    },
+    inactive: function() {
+      console.log('typekit inactive');
+      setTimeout( initCharParticles, 20 );
+    }
+  };
+
+  var timeoutDuration = 4000;
+
+  var html = document.getElementsByTagName('html')[0];
+  html.className += ' wf-loading';
+
+  // set timeout if fonts never load
+  var timeout = setTimeout( function(){
+    html.className = html.className.replace(/( |^)wf-loading( |$)/g,"");
+    html.className += ' wf-inactive';
+    console.log('typekit load timed out');
+    config.inactive();
+  }, timeoutDuration );
+
+  var typekitScript = document.createElement('script');
+  typekitScript.src= '//use.typekit.net/' + config.kitId + '.js';
+  typekitScript.async = 'true';
+  typekitScript.onload = typekitScript.onreadystatechange = function() {
+    var readyState = this.readyState;
+    if ( readyState && readyState !== 'complete' && readyState !== 'loaded' ) {
+      return;
+    }
+    clearTimeout( timeout );
+    try {
+      Typekit.load( config );
+    } catch( error ) {}
+  };
+
+  var firstScript = document.getElementsByTagName('script')[0];
+  firstScript.parentNode.insertBefore( typekitScript, firstScript );
+
+})();
+
+
+
+// -------------------------- init -------------------------- //
+
+var isInited = false;
+
+function init() {
+  console.log('init');
+  if ( isInited ) {
+    console.log('already inited');
+    return;
+  }
+  setupCharElems();
+
+  // mouse over for sparkleShine
+  document.addEventListener( 'mouseover', onMouseover, false );
+
+  isInited = true;
 }
 
 
 window.addEventListener( 'DOMContentLoaded', init, false );
 
+window.onload = init;
 
 })( window, document, Modernizr );
