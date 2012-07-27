@@ -41,6 +41,7 @@ body, h1, h2 {
 
 a {
   color: white;
+  font-weight: 700;
   text-decoration: none;
 }
 
@@ -87,6 +88,14 @@ li {
 
 .credo { font-style: italic; }
 
+.copy {
+  font-size: 20px;
+}
+
+#contact p {
+  margin-bottom: 0.8em;
+}
+
 /* desktop sizing */
 @media screen and (min-width: 480px) {
 
@@ -102,6 +111,8 @@ li {
     width: 200px;
     border-radius: 100px 100px 0 0;
   }
+
+  .copy { font-size: 26px; }
 
 }
 

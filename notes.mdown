@@ -13,3 +13,7 @@
 iOS support
 
 Contact
+
+build script
+
+loading indicator
