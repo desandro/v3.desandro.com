@@ -21,7 +21,7 @@ function setupCharElems() {
   for ( var i=0, len = splitables.length; i < len; i++ ) {
     // get words
     splitable = splitables[i];
-    words = splitable.textContent.split(' ');
+    words = splitable.innerText.split(' ');
     // clear out original HTML
     while ( splitable.firstChild ) {
       splitable.removeChild( splitable.firstChild );
@@ -39,7 +39,7 @@ function setupCharElems() {
       for ( var k=0, charsLen = chars.length; k < charsLen; k++ ) {
         charElem = document.createElement('span');
         charElem.className = 'char';
-        charElem.textContent = chars[k];
+        charElem.innerText = chars[k];
         DD.charElems.push( charElem );
         wordElem.appendChild( charElem );
         charCount++;
