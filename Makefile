@@ -17,7 +17,7 @@ js/sparkleshine.js\
 js/typekit.js\
 js/init.js
 
-jshint: js
+jshint: $(hintables)
 	@echo running jsHint on scripts
 	@for hintable in $(hintables); do \
 		jshint $$hintable; \

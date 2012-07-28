@@ -9,6 +9,9 @@
 
 'use strict';
 
+// how long to wait before showing fallback fonts
+var timeoutDuration = 3000;
+
 // -------------------------- Typekit -------------------------- //
 
 console.log('init Typekit');
@@ -23,8 +26,6 @@ var config = {
     setTimeout( DD.initCharParticles, 20 );
   }
 };
-
-var timeoutDuration = 4000;
 
 var html = document.getElementsByTagName('html')[0];
 html.className += ' wf-loading';
