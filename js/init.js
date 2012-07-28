@@ -8,60 +8,25 @@
 
 'use strict';
 
+var charCount = 0;
+
 // -------------------------- setupCharElems -------------------------- //
 
-DD.charElems = [];
-
-function setupCharElems() {
-  var splitables = document.querySelectorAll('.split');
-  var charCount = 0;
-  // split each string into words and then characters
-  var splitable, words, chars, word, wordContent, fragment, wordElem, charElem;
-
-  for ( var i=0, len = splitables.length; i < len; i++ ) {
-    // get words
-    splitable = splitables[i];
-    words = splitable.innerText.split(' ');
-    // clear out original HTML
-    while ( splitable.firstChild ) {
-      splitable.removeChild( splitable.firstChild );
-    }
-
-    fragment = document.createDocumentFragment();
-
-    // split word into characters
-    for ( var j=0, wordsLen = words.length; j < wordsLen; j++ ) {
-      word = words[j];
-      wordElem = document.createElement('span');
-      wordElem.className = 'word';
-      // wrap each character in a span
-      chars = word.split('');
-      for ( var k=0, charsLen = chars.length; k < charsLen; k++ ) {
-        charElem = document.createElement('span');
-        charElem.className = 'char';
-        charElem.innerText = chars[k];
-        DD.charElems.push( charElem );
-        wordElem.appendChild( charElem );
-        charCount++;
-      }
-      fragment.appendChild( wordElem );
-      // add space
-      fragment.appendChild( document.createTextNode(' ') );
-    }
-
-    // add splitted content
-    splitable.appendChild( fragment );
-  }
-  // console.log( charCount );
-}
 
 // -------------------------- email link -------------------------- //
 
 var emailLink;
+var emailUsername = 'contact';
+var emailDomain = 'desandro.com';
+var emailAddress = emailUsername + '@' + emailDomain;
 
 function onEmailClick( event ) {
-  emailLink.textContent = 'address@desandro.com';
-  emailLink.href = 'mailto:address@desandro.com';
+  emailLink.textContent = emailAddress;
+  emailLink.href = 'mailto:' + emailAddress;
+  // get chars for sparkle-shine
+  var charElems = DD.parseForChars( emailLink );
+  // add new char particle
+  DD.addCharParticles( charElems );
   event.preventDefault();
 }
 
@@ -70,13 +35,24 @@ function onEmailClick( event ) {
 
 var isInited = false;
 
+DD.initialCharElems = [];
+
 function init() {
   console.log('init');
   if ( isInited ) {
     console.log('already inited');
     return;
   }
-  setupCharElems();
+
+  // setup char elems
+  var splitables = document.querySelectorAll('.split');
+  // split each string into words and then characters
+  var charElems;
+  for ( var i=0, len = splitables.length; i < len; i++ ) {
+    charElems = DD.parseForChars( splitables[i] );
+    // add these char Elems to initial char elems, to be set up as charParticles
+    DD.initialCharElems = DD.initialCharElems.concat( charElems );
+  }
 
   // mouse over for sparkleShine
   document.addEventListener( 'mouseover', DD.onMouseover, false );

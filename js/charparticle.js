@@ -10,13 +10,14 @@
 
 'use strict';
 
-var charParticles = [];
 var mouseX, mouseY;
 var TWO_PI = Math.PI * 2;
 var maxDistance = 285;
 var transformProp = Modernizr.prefixed('transform');
 var isAllSettled = true;
 DD.isMouseDown = false;
+
+var charParticles = DD.charParticles = [];
 
 // -------------------------- sniff -------------------------- //
 
@@ -26,8 +27,10 @@ var isFirefox = navigator.userAgent.indexOf('Firefox') !== -1;
 
 // -------------------------- CharParticle -------------------------- //
 
-function CharParticle( elem, index ) {
-  this.index = index;
+var charParticleIndex = 0;
+
+function CharParticle( elem ) {
+  this.index = charParticleIndex;
   this.element = elem;
   this.x = 0;
   this.y = 0;
@@ -43,6 +46,7 @@ function CharParticle( elem, index ) {
 
   this.updatePosition();
 
+  charParticleIndex++;
 }
 
 CharParticle.prototype.updatePosition = function() {
@@ -205,6 +209,15 @@ function animate() {
 
 var areCharParticlesInited = false;
 
+
+DD.addCharParticles = function( charElems ) {
+  var charParticle;
+  for ( var i=0, len = charElems.length; i < len; i++ ) {
+    charParticle = new CharParticle( charElems[i] );
+    charParticles.push( charParticle );
+  }
+};
+
 DD.initCharParticles = function () {
   // if already inited, just update positions
   if ( areCharParticlesInited ) {
@@ -215,12 +228,9 @@ DD.initCharParticles = function () {
   }
 
   console.log('init char particles');
-  // setup char particles
-  var charParticle;
-  for ( var i=0, len = DD.charElems.length; i < len; i++ ) {
-    charParticle = new CharParticle( DD.charElems[i], i );
-    charParticles.push( charParticle );
-  }
+  // setup initial char particles
+  DD.addCharParticles( DD.initialCharElems );
+
   // listen for mouse down
   document.addEventListener( 'mousedown', onMousedown, false );
   // start animation

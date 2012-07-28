@@ -25,4 +25,48 @@ DD.getLink = function ( elem ) {
 };
 
 
+DD.charCount = 0;
+DD.charElems = [];
+
+// parse text into words, then into characters
+DD.parseForChars = function( elem ) {
+  var words, word, wordElem, chars, charElem;
+  var charElems = [];
+  words = elem.innerText.split(' ');
+  // clear out original HTML
+  while ( elem.firstChild ) {
+    elem.removeChild( elem.firstChild );
+  }
+
+  var fragment = document.createDocumentFragment();
+
+  // split word into characters
+  for ( var j=0, wordsLen = words.length; j < wordsLen; j++ ) {
+    word = words[j];
+    wordElem = document.createElement('span');
+    wordElem.className = 'word';
+    // wrap each character in a span
+    chars = word.split('');
+    for ( var k=0, charsLen = chars.length; k < charsLen; k++ ) {
+      charElem = document.createElement('span');
+      charElem.className = 'char';
+      charElem.innerText = chars[k];
+      charElems.push( charElem );
+      wordElem.appendChild( charElem );
+      DD.charCount++;
+    }
+    fragment.appendChild( wordElem );
+    // add space
+    fragment.appendChild( document.createTextNode(' ') );
+  }
+
+  // add splitted content
+  elem.appendChild( fragment );
+
+  return charElems;
+
+};
+
+
+
 })( window );
