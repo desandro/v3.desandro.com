@@ -27,6 +27,8 @@ function onEmailClick( event ) {
   var charElems = DD.parseForChars( emailLink );
   // add new char particle
   DD.addCharParticles( charElems );
+
+  emailLink.removeEventListener( 'click', onEmailClick, false );
   event.preventDefault();
 }
 
