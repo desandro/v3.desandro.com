@@ -12,8 +12,6 @@
 
 iOS support
 
-Contact
+<!-- Contact -->
 
-build script
-
-loading indicator
+<!-- build script -->
