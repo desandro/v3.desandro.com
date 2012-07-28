@@ -36,9 +36,9 @@ date:
 
 # updates <script>
 # should be private function, but I don't know how to do that :P
-update_scripts_all: index.html
-	@echo 'updating index.html with <script src="$(scripts_all_js)">'
-	@sed -i '' "s/js\/scripts-all.*[0-9]*.js/$(subst /,\/,$(scripts_all_js))/g" index.html
+update_scripts_all: js/scripts-all.*.js index.html
+	@echo 'updating index.html with <script src="$<">'
+	@sed -i '' "s/js\/scripts-all.*[0-9]*.js/$(subst /,\/,$<)/g" index.html
 
 
 
