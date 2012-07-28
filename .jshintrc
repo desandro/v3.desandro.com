@@ -1,0 +1,17 @@
+{
+  "predef": [
+    "Modernizr",
+    "requestAnimationFrame",
+    "Typekit"
+  ],
+  "asi": false,
+  "curly": true,
+  "devel": true,
+  "eqeqeq": true,
+  "forin": false,
+  "newcap": true,
+  "noempty": true,
+  "strict": true,
+  "undef": true,
+  "browser": true
+}
