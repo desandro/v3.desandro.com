@@ -114,15 +114,10 @@ CharParticle.prototype.update = function() {
   var deltaD = Math.sqrt( this.x * this.x + this.y * this.y );
   this.scale = (deltaD / maxDistance) * 2 + 1;
 
-  // round off values
-  this.x = Math.round( this.x * 1000 ) * 0.001;
-  this.y = Math.round( this.y * 1000 ) * 0.001;
-  this.angle = Math.round( this.angle * 10000 ) * 0.0001;
-  this.scale = Math.round( this.scale * 10000 ) * 0.0001;
-
   // check if position vars are close to origin
-  var isSettled = Math.abs( this.x ) < 0.02 && Math.abs( this.y ) < 0.02 &&
-    Math.abs( this.angle ) < 0.002 && Math.abs( this.scale - 1 ) < 0.02;
+  var isSettled = Math.abs( this.velocityX ) < 0.002 &&
+    Math.abs( this.velocityY ) < 0.002 &&
+    Math.abs( this.velocityR ) < 0.002;
 
   // settled = settled this frame AND settled last frame
   this.isSettled = this.wasSettled && isSettled;
