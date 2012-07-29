@@ -6,7 +6,7 @@
 /*global Modernizr: false, requestAnimationFrame: false */
 
 
-( function( window, document, DD, Modernizr ) {
+( function( window, document, DD, Modernizr, undefined ) {
 
 'use strict';
 
@@ -238,4 +238,4 @@ DD.initCharParticles = function () {
 };
 
 
-})( window, document, window.DD, Modernizr, undefined );
+})( window, document, window.DD, Modernizr );

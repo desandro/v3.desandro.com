@@ -4,7 +4,7 @@
 
 /*jshint asi: false, curly: true, devel: true, eqeqeq: true, forin: false, newcap: true, noempty: true, strict: true, undef: true, browser: true */
 
-( function( window, document, DD ) {
+( function( window, document, DD, undefined ) {
 
 'use strict';
 
@@ -90,4 +90,4 @@ window.addEventListener( 'DOMContentLoaded', init, false );
 window.onload = init;
 
 
-})( window, document, window.DD, undefined );
+})( window, document, window.DD );

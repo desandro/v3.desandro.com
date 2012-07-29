@@ -5,7 +5,7 @@
 /*jshint asi: false, curly: true, devel: true, eqeqeq: true, forin: false, newcap: true, noempty: true, strict: true, undef: true, browser: true */
 /*global requestAnimationFrame: false */
 
-( function( window, document, DD ) {
+( function( window, document, DD, undefined ) {
 
 'use strict';
 
@@ -106,4 +106,4 @@ DD.onMouseover = function ( event ) {
   new SparkleShineLink( link );
 };
 
-})( window, document, window.DD, undefined );
+})( window, document, window.DD );
