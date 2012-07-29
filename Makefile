@@ -1,5 +1,5 @@
 build:
-	@make scripts_all
+	@make scripts
 	@jekyll
 
 script_files = \
@@ -25,12 +25,6 @@ jshint: $(hintables)
 
 scripts_all_js = js/scripts-all.$(shell date +%y%m%d%H%M%S).js
 
-getnow:
-	@echo $(rightnow)
-
-date:
-	echo $$(date +%y%m%d%H%M%S)
-
 # updates <script>
 # should be private function, but I don't know how to do that :P
 update_scripts_all: js/scripts-all.*.js index.html
@@ -42,7 +36,7 @@ update_scripts_all: js/scripts-all.*.js index.html
 # remove any lines that begin with /*jshint or /*global
 # then, minify with Uglify JS
 # then, add newline characters after `*/`, but not last newline character
-scripts_all:
+scripts:
 	@echo 'Concatenating JS...'
 	@rm -f js/scripts-all*.js # remove previous scripts-all file
 	@for script in $(script_files); do \
@@ -63,7 +57,7 @@ scripts_all:
 
 
 # concatenate the file
-scripts_all_full:
+scripts_full:
 	@echo 'Concatenating JS...'
 	@rm -f js/scripts-all*.js # remove previous scripts-all file
 	@for script in $(script_files); do \
