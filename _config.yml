@@ -1,1 +1,1 @@
-exclude: [ Makefile, notes.mdown ]
+exclude: [ Makefile, notes.mdown, README.mdown ]
