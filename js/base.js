@@ -48,8 +48,9 @@ DD.charCount = 0;
 DD.charElems = [];
 
 // parse text into words, then into characters
-DD.parseForChars = function( elem ) {
+DD.parseForParticles = function( elem ) {
   var words, word, wordElem, chars, charElem;
+  var wordElems = [];
   var charElems = [];
   words = elem.textContent.split(' ');
   // clear out original HTML
@@ -64,6 +65,7 @@ DD.parseForChars = function( elem ) {
     word = words[j];
     wordElem = document.createElement('span');
     wordElem.className = 'word';
+    wordElems.push( wordElem );
     // wrap each character in a span
     chars = word.split('');
     for ( var k=0, charsLen = chars.length; k < charsLen; k++ ) {
@@ -82,7 +84,8 @@ DD.parseForChars = function( elem ) {
   // add splitted content
   elem.appendChild( fragment );
 
-  return charElems;
+  // return word elem for touch
+  return DD.isTouch ? wordElems : charElems;
 
 };
 

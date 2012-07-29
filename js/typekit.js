@@ -36,7 +36,7 @@ var timeout = setTimeout( function(){
   html.className += ' wf-inactive';
   // console.log('typekit load timed out');
   config.inactive();
-}, timeoutDuration );
+}, 20 );
 
 var typekitScript = document.createElement('script');
 typekitScript.src= '//use.typekit.net/' + config.kitId + '.js';

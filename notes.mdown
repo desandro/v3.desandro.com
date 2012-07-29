@@ -10,7 +10,7 @@
 
 <!-- don't cycle through particles if at rest -->
 
-iOS support
+<!-- iOS support -->
 
 <!-- Contact -->
 

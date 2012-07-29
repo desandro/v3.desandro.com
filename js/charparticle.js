@@ -2,7 +2,7 @@
  * charParticles - particles from characters
 **/
 
-/*jshint asi: false, curly: true, devel: true, eqeqeq: true, forin: false, newcap: true, noempty: true, strict: true, undef: true, browser: true */
+/*jshint asi: false, curly: true, devel: false, eqeqeq: true, forin: false, newcap: true, noempty: true, strict: true, undef: true, browser: true */
 /*global Modernizr: false, requestAnimationFrame: false */
 
 
@@ -175,7 +175,7 @@ function onTouchstart( event ) {
     touch = event.changedTouches[i];
     if ( !pivotTouchIdentifier ) {
       pivotTouchIdentifier = touch.identifier;
-      console.log('pivot touch started', touch.identifier );
+      // console.log('pivot touch started', touch.identifier );
       window.addEventListener( 'touchend', onPivotTouchend, false );
     } else if ( !cursorTouchIdentifier ) {
       cursorStart( touch, event );
@@ -189,7 +189,7 @@ function cursorStart( cursor, event ) {
   if ( DD.getTaggedElem( cursor.target, 'span' ) ) {
     return;
   }
-  console.log('cursor started' );
+  // console.log('cursor started' );
   DD.isCursorActive = true;
   DD.areAllCharParticlesSettled = false;
   mouseX = cursor.pageX;
@@ -248,7 +248,7 @@ function onPivotTouchend( event ) {
     if ( touch.identifier === pivotTouchIdentifier ) {
       pivotTouchIdentifier = null;
       cursorEnd();
-      console.log('pivot touch ended');
+      // console.log('pivot touch ended');
       window.removeEventListener( 'touchend', onPivotTouchend, false );
     }
   }
@@ -267,7 +267,7 @@ function onTouchend( event ) {
 function cursorEnd() {
   DD.isCursorActive = false;
   cursorTouchIdentifier = null;
-  console.log('cursor ended');
+  // console.log('cursor ended');
   if ( DD.isTouch ) {
     window.removeEventListener( 'touchmove', onTouchmove, false );
     window.removeEventListener( 'touchend', onTouchend, false );
@@ -321,12 +321,11 @@ DD.initCharParticles = function () {
 
   // console.log('init char particles');
   // setup initial char particles
-  DD.addCharParticles( DD.initialCharElems );
+  DD.addCharParticles( DD.initialParticleElems );
 
 
   // listen for mouse down
   if ( DD.isTouch ) {
-    console.log('listening for touch starts')
     document.addEventListener( 'touchstart', onTouchstart, false );
   } else {
     document.addEventListener( 'mousedown', onMousedown, false );

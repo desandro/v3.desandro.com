@@ -24,7 +24,7 @@ function onEmailClick( event ) {
   emailLink.textContent = emailAddress;
   emailLink.href = 'mailto:' + emailAddress;
   // get chars for sparkle-shine
-  var charElems = DD.parseForChars( emailLink );
+  var charElems = DD.parseForParticles( emailLink );
   // add new char particle
   var charParticles = DD.addCharParticles( charElems );
   // give the new particles a jolt!
@@ -55,7 +55,7 @@ function onEmailClick( event ) {
 
 var isInited = false;
 
-DD.initialCharElems = [];
+DD.initialParticleElems = [];
 
 function init() {
   // console.log('init');
@@ -68,13 +68,15 @@ function init() {
   // split each string into words and then characters
   var charElems;
   for ( var i=0, len = splitables.length; i < len; i++ ) {
-    charElems = DD.parseForChars( splitables[i] );
-    // add these char Elems to initial char elems, to be set up as charParticles
-    DD.initialCharElems = DD.initialCharElems.concat( charElems );
+    charElems = DD.parseForParticles( splitables[i] );
+    // add these char Elems to initial particle elems, to be set up as charParticles
+    DD.initialParticleElems = DD.initialParticleElems.concat( charElems );
   }
 
   // mouse over for sparkleShine
-  document.addEventListener( 'mouseover', DD.onMouseover, false );
+  if ( !DD.isTouch ) {
+    document.addEventListener( 'mouseover', DD.onMouseover, false );
+  }
 
   emailLink = document.getElementById('email');
   emailLink.addEventListener( 'click', onEmailClick, false );
