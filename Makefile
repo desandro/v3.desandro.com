@@ -2,9 +2,9 @@ build:
 	@make scripts_all
 	@jekyll
 
-script_files =\
-modules/requestanimationframe/requestanimationframe.js\
+script_files = \
 js/base.js\
+modules/requestanimationframe/requestanimationframe.js\
 js/sparkleshine.js\
 js/charparticle.js\
 js/typekit.js\
@@ -23,9 +23,6 @@ jshint: $(hintables)
 		jshint $$hintable; \
 	done
 
-# timestamp=$(shell date +%y%m%d%H%M%S)
-
-scripts_all_regex = js/scripts-all*.js
 scripts_all_js = js/scripts-all.$(shell date +%y%m%d%H%M%S).js
 
 getnow:
@@ -49,7 +46,8 @@ scripts_all:
 	@echo 'Concatenating JS...'
 	@rm -f js/scripts-all*.js # remove previous scripts-all file
 	@for script in $(script_files); do \
-		echo "\n// ----- $$script ----- //\n" >> $(scripts_all_js); \
+		echo "\n// ----- $$script ----- //\n" \
+			"// original-> http://desandro.com/$$script\n" >> $(scripts_all_js); \
 		if [[ $$script != *min.js* ]]; then \
 			echo "...minifying and adding $$script"; \
 			awk '!/^\/\*[jshint|global]/' $$script \
@@ -70,7 +68,8 @@ scripts_all_full:
 	@rm -f js/scripts-all*.js # remove previous scripts-all file
 	@for script in $(script_files); do \
 		echo "  adding $$script"; \
-		echo "\n// ----- $$script ----- //\n" >> $(scripts_all_js); \
+		echo "\n// ----- $$script ----- //\n" \
+			"// original-> http://desandro.com/$$script\n" >> $(scripts_all_js); \
 		cat $$script >> $(scripts_all_js); \
 	done
 	@make update_scripts_all

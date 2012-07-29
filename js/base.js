@@ -1,5 +1,17 @@
 /**
- * base, first script
+ * desandro.com v3 scripts
+ *
+ * Oh, hey! Thanks for taking a look :)
+ * This code is all unminified,
+ * but the original scripts are all up
+ *
+ * Happy dev times!
+ *
+ * - Dave
+**/
+
+/**
+ * base, get things going with utils
 **/
 
 /*jshint asi: false, curly: true, devel: true, eqeqeq: true, forin: false, newcap: true, noempty: true, strict: true, undef: true, browser: true */
