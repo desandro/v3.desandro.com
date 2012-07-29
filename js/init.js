@@ -26,7 +26,25 @@ function onEmailClick( event ) {
   // get chars for sparkle-shine
   var charElems = DD.parseForChars( emailLink );
   // add new char particle
-  DD.addCharParticles( charElems );
+  var charParticles = DD.addCharParticles( charElems );
+  // give the new particles a jolt!
+  var charParticle, angle, force, dx, dy;
+  for ( var i=0, len = charParticles.length; i < len; i++ ) {
+    charParticle = charParticles[i];
+    dx = event.pageX - charParticle.originX;
+    dy = event.pageY - charParticle.originY;
+    angle = Math.atan2( dy, dx );
+    force = Math.max( 0, 1 - Math.sqrt(dx*dx + dy*dy) / 300 );
+    force *= force * 20;
+    charParticle.velocityX = Math.cos( angle ) * -force;
+    charParticle.velocityY = Math.sin( angle ) * -force;
+    charParticle.x = dx;
+    charParticle.y = dy;
+    charParticle.wasSettled = false;
+    charParticle.isSettled = false;
+  }
+
+  DD.areAllCharParticlesSettled = false;
 
   emailLink.removeEventListener( 'click', onEmailClick, false );
   event.preventDefault();
@@ -61,6 +79,7 @@ function init() {
 
   emailLink = document.getElementById('email');
   emailLink.addEventListener( 'click', onEmailClick, false );
+
 
   isInited = true;
 }

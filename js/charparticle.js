@@ -14,7 +14,7 @@ var mouseX, mouseY;
 var TWO_PI = Math.PI * 2;
 var maxDistance = 285;
 var transformProp = Modernizr.prefixed('transform');
-var isAllSettled = true;
+DD.areAllCharParticlesSettled = true;
 DD.isMouseDown = false;
 
 var charParticles = DD.charParticles = [];
@@ -161,7 +161,7 @@ function onMousedown( event ) {
     return;
   }
   DD.isMouseDown = true;
-  isAllSettled = false;
+  DD.areAllCharParticlesSettled = false;
   mouseX = event.pageX;
   mouseY = event.pageY;
   event.preventDefault();
@@ -190,12 +190,12 @@ var isThisFrameSettled = false;
 function animate() {
   // console.log('animate');
   // console.log( charParticles );
-  if ( !isAllSettled ) {
+  if ( !DD.areAllCharParticlesSettled ) {
     isThisFrameSettled = true;
     for ( var i=0, len = charParticles.length; i < len; i++ ) {
       charParticles[i].update();
     }
-    isAllSettled = isThisFrameSettled;
+    DD.areAllCharParticlesSettled = isThisFrameSettled;
   }
   requestAnimationFrame( animate );
 }
@@ -207,10 +207,13 @@ var areCharParticlesInited = false;
 
 DD.addCharParticles = function( charElems ) {
   var charParticle;
+  var newCharParticles = [];
   for ( var i=0, len = charElems.length; i < len; i++ ) {
     charParticle = new CharParticle( charElems[i] );
+    newCharParticles.push( charParticle );
     charParticles.push( charParticle );
   }
+  return newCharParticles;
 };
 
 DD.initCharParticles = function () {
