@@ -37,7 +37,7 @@ DD.charElems = [];
 DD.parseForChars = function( elem ) {
   var words, word, wordElem, chars, charElem;
   var charElems = [];
-  words = elem.innerText.split(' ');
+  words = elem.textContent.split(' ');
   // clear out original HTML
   while ( elem.firstChild ) {
     elem.removeChild( elem.firstChild );
@@ -55,7 +55,7 @@ DD.parseForChars = function( elem ) {
     for ( var k=0, charsLen = chars.length; k < charsLen; k++ ) {
       charElem = document.createElement('span');
       charElem.className = 'char';
-      charElem.innerText = chars[k];
+      charElem.textContent = chars[k];
       charElems.push( charElem );
       wordElem.appendChild( charElem );
       DD.charCount++;
