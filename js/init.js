@@ -2,7 +2,7 @@
  * init - start when doc ready
 **/
 
-/*jshint asi: false, curly: true, devel: true, eqeqeq: true, forin: false, newcap: true, noempty: true, strict: true, undef: true, browser: true */
+/*jshint asi: false, curly: true, devel: false, eqeqeq: true, forin: false, newcap: true, noempty: true, strict: true, undef: true, browser: true */
 
 ( function( window, document, DD, undefined ) {
 
@@ -58,9 +58,8 @@ var isInited = false;
 DD.initialCharElems = [];
 
 function init() {
-  console.log('init');
+  // console.log('init');
   if ( isInited ) {
-    console.log('already inited');
     return;
   }
 

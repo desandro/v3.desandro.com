@@ -2,7 +2,7 @@
  * charParticles - particles from characters
 **/
 
-/*jshint asi: false, curly: true, devel: true, eqeqeq: true, forin: false, newcap: true, noempty: true, strict: true, undef: true, browser: true */
+/*jshint asi: false, curly: true, devel: false, eqeqeq: true, forin: false, newcap: true, noempty: true, strict: true, undef: true, browser: true */
 /*global Modernizr: false, requestAnimationFrame: false */
 
 
@@ -224,7 +224,7 @@ DD.initCharParticles = function () {
     return;
   }
 
-  console.log('init char particles');
+  // console.log('init char particles');
   // setup initial char particles
   DD.addCharParticles( DD.initialCharElems );
 

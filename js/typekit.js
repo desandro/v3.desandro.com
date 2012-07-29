@@ -2,7 +2,7 @@
  * Typekit
 **/
 
-/*jshint asi: false, curly: true, devel: true, eqeqeq: true, forin: false, newcap: true, noempty: true, strict: true, undef: true, browser: true */
+/*jshint asi: false, curly: true, devel: false, eqeqeq: true, forin: false, newcap: true, noempty: true, strict: true, undef: true, browser: true */
 /*global Typekit: false */
 
 ( function( window, document, DD, undefined ) {
@@ -14,15 +14,15 @@ var timeoutDuration = 3000;
 
 // -------------------------- Typekit -------------------------- //
 
-console.log('init Typekit');
+// console.log('init Typekit');
 var config = {
   kitId: 'eel3tlp',
   active: function() {
-    console.log('typekit active');
+    // console.log('typekit active');
     setTimeout( DD.initCharParticles, 20 );
   },
   inactive: function() {
-    console.log('typekit inactive');
+    // console.log('typekit inactive');
     setTimeout( DD.initCharParticles, 20 );
   }
 };
@@ -34,7 +34,7 @@ html.className += ' wf-loading';
 var timeout = setTimeout( function(){
   html.className = html.className.replace(/( |^)wf-loading( |$)/g,"");
   html.className += ' wf-inactive';
-  console.log('typekit load timed out');
+  // console.log('typekit load timed out');
   config.inactive();
 }, timeoutDuration );
 
