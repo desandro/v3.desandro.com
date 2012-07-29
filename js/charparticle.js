@@ -156,8 +156,8 @@ CharParticle.prototype.render = !Modernizr.csstransforms || isFirefox ?
 // -------------------------- events -------------------------- //
 
 function onMousedown( event ) {
-  // don't trigger displacement on links
-  if ( DD.getLink( event.target ) ) {
+  // don't trigger displacement on text
+  if ( DD.getTaggedElem( event.target, 'span' ) ) {
     return;
   }
   DD.isMouseDown = true;

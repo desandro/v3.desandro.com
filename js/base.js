@@ -13,10 +13,15 @@ var DD = window.DD = {};
 
 // -------------------------- utils -------------------------- //
 
-DD.getLink = function ( elem ) {
+/**
+ * Checks if elem matches a tag
+ * @param elem Element
+ * @param tag String - 'a', 'span'
+**/
+DD.getTaggedElem = function ( elem, tag ) {
   // walk up DOM, see if elem is <a>
   while ( elem.nodeType !== 9 ) {
-    if ( elem.nodeName.toLowerCase() === 'a' ) {
+    if ( elem.nodeName.toLowerCase() === tag ) {
       return elem;
     }
     elem = elem.parentNode;

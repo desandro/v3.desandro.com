@@ -97,7 +97,7 @@ SparkleShineLink.prototype.sparkle = function() {
 
 DD.onMouseover = function ( event ) {
   // we only care about mouse over <a>, when mouse isn't down
-  var link = DD.getLink( event.target );
+  var link = DD.getTaggedElem( event.target, 'a' );
   if ( DD.isMouseDown || !link || link === hoveredLink ) {
     return;
   }
