@@ -1,0 +1,18 @@
+RewriteEngine on
+
+# Masonry docs redirects
+RewriteRule ^resources/jquery-masonry/docs/(infinite-scroll|basic\-single\-column|basic\-multi\-column|tumblelog|infinite-scroll|animating\-jquery|animating\-css\-transitions).html$ http://masonry.desandro.com/demos/$1.html [R=301,NC,L]
+Redirect 301 /resources/jquery-masonry/docs/appending.html http://masonry.desandro.com/demos/adding-items.html
+RewriteRule ^resources/jquery-masonry(\/|\/index\.html)?$ http://masonry.desandro.com/ [R=301,NC,L]
+
+# resource redirects
+RewriteRule ^resources/close-pixelate http://close-pixelate.desandro.com [R=301,NC,L]
+
+# v2 articles
+RewriteRule ^articles/(conclusion|masonry\-identity|half\-ton\-halftones|undulate\-net|signature|undulate|2010\-projects|behold\-dropshadows|fruit\-stickers|close\-with\-canvas|going\-steady\-with\-stacey|opera\-logo\-css|conan\-asks|the\-new\-lens\-flare|jquery\-masonry\-v10\-released|advice\-ouroboros|nclusion|introducing\-gmail\-vitamin\-a\-userstyle|why\-art|prototyping\-with\-the\-canvas\-element|do\-make\-create|one\-step\-up\-from\-doodling|granularity|textpattern\-interface\-case\-study|i\-like\-ie6\-because|uncover|concept\-flow\-what\-i\-m\-going\-for)/? http://v2.desandro.com/articles/$1/ [R=301,NC,L]
+
+#v2 resources
+RewriteRule ^resources/(curtis\-css\-typeface|css\-speech\-bubble\-icon|quickie\-canvas)/? http://v2.desandro.com/resources/$1/ [R=301,NC,L]
+
+#v2 sections
+RewriteRule ^(articles|resources|portfolio) http://v2.desandro.com/$1/ [R=301,NC,L]
