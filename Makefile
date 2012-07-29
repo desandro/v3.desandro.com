@@ -1,6 +1,8 @@
 build:
+	@rm -rf _site #clear out previous site
 	@make scripts
 	@jekyll
+	@cp .htaccess _site/
 
 script_files = \
 js/base.js\
@@ -67,3 +69,7 @@ scripts_full:
 		cat $$script >> $(scripts_all_js); \
 	done
 	@make update_scripts_all
+
+deploy: _site
+	@echo 'Deploying to $$BERNA'
+	@rsync -avz _site/ $$BERNA:~/www
