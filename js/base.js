@@ -22,6 +22,8 @@
 
 // global namespace
 var DD = window.DD = {};
+// check iOS touch
+DD.isTouch = 'createTouch' in document;
 
 // -------------------------- utils -------------------------- //
 

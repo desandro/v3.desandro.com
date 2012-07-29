@@ -86,7 +86,12 @@ function init() {
 
 window.addEventListener( 'DOMContentLoaded', init, false );
 
-window.onload = init;
+
+if ( !DD.isTouch ) {
+  // this gives iOS pain
+  window.onload = init;
+}
+
 
 
 })( window, document, window.DD );

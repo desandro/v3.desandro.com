@@ -2,7 +2,7 @@
  * charParticles - particles from characters
 **/
 
-/*jshint asi: false, curly: true, devel: false, eqeqeq: true, forin: false, newcap: true, noempty: true, strict: true, undef: true, browser: true */
+/*jshint asi: false, curly: true, devel: true, eqeqeq: true, forin: false, newcap: true, noempty: true, strict: true, undef: true, browser: true */
 /*global Modernizr: false, requestAnimationFrame: false */
 
 
@@ -15,7 +15,7 @@ var TWO_PI = Math.PI * 2;
 var maxDistance = 285;
 var transformProp = Modernizr.prefixed('transform');
 DD.areAllCharParticlesSettled = true;
-DD.isMouseDown = false;
+DD.isCursorActive = false;
 
 var charParticles = DD.charParticles = [];
 
@@ -65,10 +65,11 @@ CharParticle.prototype.update = function() {
   var dy = mouseY - ( this.originY + this.y );
   var d = Math.sqrt( dx*dx + dy*dy );
 
+
   var angle = 0;
   var targetAngle = 0;
 
-  if ( DD.isMouseDown && d < maxDistance ) {
+  if ( DD.isCursorActive && d < maxDistance ) {
     // dx = mouseX - p.x;
     // dy = mouseY - p.y;
     var force = (1 - d / maxDistance);
@@ -84,7 +85,6 @@ CharParticle.prototype.update = function() {
     } else if ( Math.abs( (targetAngle + TWO_PI) - this.angle ) < absDiff ) {
       targetAngle += TWO_PI;
     }
-
 
     force *= force * 3;
     this.velocityX += Math.cos( angle ) * -force;
@@ -118,6 +118,7 @@ CharParticle.prototype.update = function() {
   var isSettled = Math.abs( this.x ) < 0.03 && Math.abs( this.y ) < 0.03 &&
     Math.abs( this.angle ) < 0.004 && Math.abs( this.scale - 1 ) < 0.03;
 
+
   // settled = settled this frame AND settled last frame
   this.isSettled = this.wasSettled && isSettled;
   // check if particles are settled for this frame
@@ -126,6 +127,7 @@ CharParticle.prototype.update = function() {
   }
   // next time, for previous frame
   this.wasSettled = isSettled;
+
 
   this.render();
 
@@ -154,33 +156,126 @@ CharParticle.prototype.render = !Modernizr.csstransforms || isFirefox ?
 
 // -------------------------- events -------------------------- //
 
+var isListeningForCursors = false;
+
+// ----- cursor start ----- //
+
 function onMousedown( event ) {
+  cursorStart( event, event );
+}
+
+var pivotTouchIdentifier;
+var cursorTouchIdentifier;
+
+// allow displacement when two fingers are down, on second touch
+function onTouchstart( event ) {
+  // cursorStart( event.changedTouches[0], event );
+  var touch;
+  for ( var i=0, len = event.changedTouches.length; i < len; i++ ) {
+    touch = event.changedTouches[i];
+    if ( !pivotTouchIdentifier ) {
+      pivotTouchIdentifier = touch.identifier;
+      console.log('pivot touch started', touch.identifier );
+      window.addEventListener( 'touchend', onPivotTouchend, false );
+    } else if ( !cursorTouchIdentifier ) {
+      cursorStart( touch, event );
+    }
+    // cursorStart( touch, touch.identifier, event );
+  }
+}
+
+function cursorStart( cursor, event ) {
   // don't trigger displacement on text
-  if ( DD.getTaggedElem( event.target, 'span' ) ) {
+  if ( DD.getTaggedElem( cursor.target, 'span' ) ) {
     return;
   }
-  DD.isMouseDown = true;
+  console.log('cursor started' );
+  DD.isCursorActive = true;
   DD.areAllCharParticlesSettled = false;
-  mouseX = event.pageX;
-  mouseY = event.pageY;
+  mouseX = cursor.pageX;
+  mouseY = cursor.pageY;
+
+  if ( cursor.identifier ) {
+    cursorTouchIdentifier = cursor.identifier;
+  }
   event.preventDefault();
-  window.addEventListener( 'mousemove', onMousemove, false );
-  window.addEventListener( 'mouseup', onMouseup, false );
+  if ( DD.isTouch ) {
+    window.addEventListener( 'touchmove', onTouchmove, false );
+    window.addEventListener( 'touchend', onTouchend, false );
+  } else {
+    window.addEventListener( 'mousemove', onMousemove, false );
+    window.addEventListener( 'mouseup', onMouseup, false );
+  }
 }
+
+// ----- cursor move ----- //
 
 function onMousemove( event ) {
-  mouseX = event.pageX;
-  mouseY = event.pageY;
-  // console.log( mouseX, mouseY );
+  cursorMove( event );
 }
 
+function onTouchmove( event ) {
+  // cursorMove( event.changedTouches[0] )
+  var touch;
+  // only move cursor if it matches
+  for ( var i=0, len = event.changedTouches.length; i < len; i++ ) {
+    touch = event.changedTouches[i];
+    if ( cursorTouchIdentifier && touch.identifier === cursorTouchIdentifier ) {
+      cursorMove( touch );
+    }
+  }
+}
+
+function cursorMove( cursor ) {
+  // console.log('cursor move ' + cursor.pageX + ' ' + cursor.pageY );
+  mouseX = parseInt( cursor.pageX, 10 );
+  mouseY = parseInt( cursor.pageY, 10 );
+}
+
+// ----- cursor end ----- //
+
 function onMouseup( event ) {
-  DD.isMouseDown = false;
+  DD.isCursorActive = false;
   window.removeEventListener( 'mousemove', onMousemove, false );
   window.removeEventListener( 'mouseup', onMouseup, false );
 }
 
+function onPivotTouchend( event ) {
+  var touch;
+  for ( var i=0, len = event.changedTouches.length; i < len; i++ ) {
+    touch = event.changedTouches[i];
+    // if pivot touch ends, end it all
+    if ( touch.identifier === pivotTouchIdentifier ) {
+      pivotTouchIdentifier = null;
+      cursorEnd();
+      console.log('pivot touch ended');
+      window.removeEventListener( 'touchend', onPivotTouchend, false );
+    }
+  }
+}
 
+function onTouchend( event ) {
+  var touch;
+  for ( var i=0, len = event.changedTouches.length; i < len; i++ ) {
+    touch = event.changedTouches[i];
+    if ( touch.identifier === cursorTouchIdentifier ) {
+      cursorEnd();
+    }
+  }
+}
+
+function cursorEnd() {
+  DD.isCursorActive = false;
+  cursorTouchIdentifier = null;
+  console.log('cursor ended');
+  if ( DD.isTouch ) {
+    window.removeEventListener( 'touchmove', onTouchmove, false );
+    window.removeEventListener( 'touchend', onTouchend, false );
+  } else {
+    window.removeEventListener( 'mousemove', onMousemove, false );
+    window.removeEventListener( 'mouseup', onMouseup, false );
+  }
+}
 
 // -------------------------- animation -------------------------- //
 
@@ -228,8 +323,15 @@ DD.initCharParticles = function () {
   // setup initial char particles
   DD.addCharParticles( DD.initialCharElems );
 
+
   // listen for mouse down
-  document.addEventListener( 'mousedown', onMousedown, false );
+  if ( DD.isTouch ) {
+    console.log('listening for touch starts')
+    document.addEventListener( 'touchstart', onTouchstart, false );
+  } else {
+    document.addEventListener( 'mousedown', onMousedown, false );
+  }
+  
   // start animation
   animate();
 
