@@ -32,17 +32,6 @@ module.exports = function(grunt) {
       }
     },
 
-    js: {
-      files: [
-        'js/base.js',
-        'modules/requestanimationframe/requestanimationframe.js',
-        'js/sparkleshine.js',
-        'js/charparticle.js',
-        'js/typekit.js',
-        'js/init.js'
-      ]
-    }
-
   });
 
 
@@ -56,12 +45,22 @@ module.exports = function(grunt) {
   ];
 
 
+
   grunt.registerTask( 'js', 'Minifies and concats JS', function( arg1 ) {
+    var output = '';
     // console.log( this.file );
     scriptFiles.forEach( function( fileSrc, i ) {
       // console.log( fileSrc );
-      var file = grunt.file.read( fileSrc )
-      console.log( grunt.helper( 'uglify', file ) )
+      var file = grunt.file.read( fileSrc );
+      output  += '// ---- ' + fileSrc + ' ---- //\n\n';
+      if ( arg1 === 'full' || fileSrc.indexOf('.min.js') !== -1 ) {
+        console.log('full')
+        output += file;
+      } else {
+        output += grunt.helper( 'uglify', file );
+      }
+      output += '\n\n';
+      grunt.file.write( 'js/output.js', output );
     });
   });
 
