@@ -1,11 +1,8 @@
-# desandro.com v3
-
-[desandro.com](http://desandro.com)
+# [desandro.com](http://desandro.com) v3
 
 Just a one-pager. Content generated with [Jekyll](https://github.com/mojombo/jekyll). JS is minified with [uglifyjs](https://github.com/mishoo/uglifyjs). Then it's all wrapped up together with the Makefile.
 
-``` base
-make # builds the site
+``` bash
+make # build the site
 make scripts # minify and concatenate JS
 ```
-
