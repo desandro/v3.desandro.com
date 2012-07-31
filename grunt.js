@@ -57,7 +57,8 @@ module.exports = function(grunt) {
   }
 
 
-  grunt.registerTask( 'js', 'Minifies and concats JS', function( arg1 ) {
+
+  grunt.registerTask( 'buildjs', 'Minifies and concats JS', function( arg1 ) {
     removeFile('js/scripts-all*.js');
     var output = '';
     // timestamp destination js file
@@ -78,6 +79,11 @@ module.exports = function(grunt) {
     });
   });
 
+  grunt.registerTask( 'js', function( arg1 ) {
+    grunt.task.run( 'lint buildjs:' + ( arg1 || '') );
+  });
+
+
   grunt.registerTask( 'scriptsrc', 'update <script src="">', function() {
     var script = grunt.file.expandFiles('js/scripts-all*.js')[0];
     var index = grunt.file.expandFiles('index.html')[0];
@@ -86,6 +92,31 @@ module.exports = function(grunt) {
     grunt.file.write( index, revised );
   });
 
+  // grunt version of `jekyll`
+  grunt.registerTask( 'jekyll', 'Runs jekyll', function() {
+    var done = this.async();
+    grunt.utils.spawn({
+      cmd: 'jekyll'
+    }, function() {
+      done();
+    });
+  });
 
+  // grunt version of `rm -rf _site`
+  grunt.registerTask( 'removeSite', function() {
+    var done = this.async();
+    grunt.utils.spawn({
+      cmd: 'rm',
+      args: ['-rf', '_site']
+    }, function() {
+      done();
+    });
+  });
+
+  grunt.registerTask( 'copyHtaccess', function() {
+    grunt.file.copy( '.htaccess', '_site/.htaccess' );
+  });
+
+  grunt.registerTask( 'build', 'js scriptsrc removeSite jekyll copyHtaccess' );
 
 };

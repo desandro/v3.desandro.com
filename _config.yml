@@ -1,2 +1,2 @@
 include: [ .htaccess ]
-exclude: [ Makefile, notes.mdown, README.mdown ]
+exclude: [ Makefile, notes.mdown, README.mdown, grunt.js ]
