@@ -1,3 +1,6 @@
+var childProcess = require('child_process');
+var fs = require('fs');
+
 module.exports = function(grunt) {
 
   grunt.initConfig({
@@ -30,7 +33,7 @@ module.exports = function(grunt) {
         requestAnimationFrame: false,
         Typekit: false
       }
-    },
+    }
 
   });
 
@@ -44,10 +47,34 @@ module.exports = function(grunt) {
     'js/init.js'
   ];
 
+  function twoDigit( num ) {
+    return num < 10 ? '0' + num : num;
+  }
+
+  // returns YYYYMMDDHHMMSS
+  function getTimestamp() {
+    var now = new Date();
+    return now.getFullYear() +
+      twoDigit( now.getMonth() + 1 ) +
+      twoDigit( now.getDate() ) +
+      twoDigit( now.getHours() ) +
+      twoDigit( now.getMinutes() ) +
+      twoDigit( now.getSeconds() )
+  }
+
+
+  function removeFile( patterns ) {
+    var files = grunt.file.expandFiles( patterns );
+    files.forEach( function( file ) {
+      fs.unlinkSync( file );
+    });
+  }
 
 
   grunt.registerTask( 'js', 'Minifies and concats JS', function( arg1 ) {
+    removeFile('js/scripts-all*.js');
     var output = '';
+    var dest = 'js/scripts-all.' + getTimestamp() + '.js';
     // console.log( this.file );
     scriptFiles.forEach( function( fileSrc, i ) {
       // console.log( fileSrc );
@@ -60,7 +87,7 @@ module.exports = function(grunt) {
         output += grunt.helper( 'uglify', file );
       }
       output += '\n\n';
-      grunt.file.write( 'js/output.js', output );
+      grunt.file.write( dest, output );
     });
   });
 
@@ -70,14 +97,26 @@ module.exports = function(grunt) {
   });
 
   // grunt.registerTask( 'scripts', 'concats and mins JS', function( arg1 ) {
-  // 
+  //
   //   console.log( arguments )
   //   grunt.log.writeln('hello world' + 'foo', isFull, arguments )
   // });
 
 
 
+  grunt.registerTask( 'ls', 'deploy to server', function() {
+    done = this.async();
+    grunt.utils.spawn({
+      cmd: 'ls',
+      args: []
+    }, function( err, result, code ) {
+      console.log( result );
+      done();
+    })
+  });
 
+  grunt.registerTask( 'scriptsrc', 'update <script src="">', function() {
+  });
 
 
   // grunt.registerTask( 'foo', 'Kicks up the foo-ness', function() {
