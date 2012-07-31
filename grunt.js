@@ -103,6 +103,11 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask( 'scriptsrc', 'update <script src="">', function() {
+    var script = grunt.file.expandFiles('js/scripts-all*.js')[0];
+    var file = grunt.file.expandFiles('index.html')[0];
+    var contents = grunt.file.read( file );
+    var revised = contents.replace( /js\/scripts-all([\.\w\d\-]+)?.js/, script );
+    grunt.file.write( file, revised );
   });
 
 
