@@ -62,15 +62,15 @@ module.exports = function(grunt) {
     var output = '';
     // timestamp destination js file
     var dest = 'js/scripts-all.' + grunt.template.today('yymmddhhmmss') + '.js';
-    // console.log( this.file );
+
     scriptFiles.forEach( function( fileSrc, i ) {
-      // console.log( fileSrc );
       var file = grunt.file.read( fileSrc );
       output  += '// ---- ' + fileSrc + ' ---- //\n\n';
       if ( arg1 === 'full' || fileSrc.indexOf('.min.js') !== -1 ) {
-        console.log('full')
+        // concat full file
         output += file;
       } else {
+        // concat minified file
         output += grunt.helper( 'uglify', file );
       }
       output += '\n\n';
@@ -81,7 +81,7 @@ module.exports = function(grunt) {
   grunt.registerTask( 'scriptsrc', 'update <script src="">', function() {
     var script = grunt.file.expandFiles('js/scripts-all*.js')[0];
     var index = grunt.file.expandFiles('index.html')[0];
-    var contents = grunt.file.read( file );
+    var contents = grunt.file.read( index );
     var revised = contents.replace( /js\/scripts-all([\.\w\d\-]+)?.js/, script );
     grunt.file.write( index, revised );
   });
