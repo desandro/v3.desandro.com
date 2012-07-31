@@ -78,42 +78,14 @@ module.exports = function(grunt) {
     });
   });
 
-  grunt.registerTask( 'env', '', function() {
-    var min = grunt.helper( 'uglify', 'var foo = 19; var bar = foo + 9;' )
-    console.log( min )
-  });
-
-  // grunt.registerTask( 'scripts', 'concats and mins JS', function( arg1 ) {
-  //
-  //   console.log( arguments )
-  //   grunt.log.writeln('hello world' + 'foo', isFull, arguments )
-  // });
-
-
-
-  grunt.registerTask( 'ls', 'deploy to server', function() {
-    done = this.async();
-    grunt.utils.spawn({
-      cmd: 'ls',
-      args: []
-    }, function( err, result, code ) {
-      console.log( result );
-      done();
-    })
-  });
-
   grunt.registerTask( 'scriptsrc', 'update <script src="">', function() {
     var script = grunt.file.expandFiles('js/scripts-all*.js')[0];
-    var file = grunt.file.expandFiles('index.html')[0];
+    var index = grunt.file.expandFiles('index.html')[0];
     var contents = grunt.file.read( file );
     var revised = contents.replace( /js\/scripts-all([\.\w\d\-]+)?.js/, script );
-    grunt.file.write( file, revised );
+    grunt.file.write( index, revised );
   });
 
-
-  // grunt.registerTask( 'foo', 'Kicks up the foo-ness', function() {
-  //   grunt.log.writeln('hello world')
-  // });
 
 
 };
