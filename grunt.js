@@ -47,20 +47,6 @@ module.exports = function(grunt) {
     'js/init.js'
   ];
 
-  function twoDigit( num ) {
-    return num < 10 ? '0' + num : num;
-  }
-
-  // returns YYYYMMDDHHMMSS
-  function getTimestamp() {
-    var now = new Date();
-    return now.getFullYear() +
-      twoDigit( now.getMonth() + 1 ) +
-      twoDigit( now.getDate() ) +
-      twoDigit( now.getHours() ) +
-      twoDigit( now.getMinutes() ) +
-      twoDigit( now.getSeconds() )
-  }
 
 
   function removeFile( patterns ) {
@@ -74,7 +60,8 @@ module.exports = function(grunt) {
   grunt.registerTask( 'js', 'Minifies and concats JS', function( arg1 ) {
     removeFile('js/scripts-all*.js');
     var output = '';
-    var dest = 'js/scripts-all.' + getTimestamp() + '.js';
+    // timestamp destination js file
+    var dest = 'js/scripts-all.' + grunt.template.today('yymmddhhmmss') + '.js';
     // console.log( this.file );
     scriptFiles.forEach( function( fileSrc, i ) {
       // console.log( fileSrc );
