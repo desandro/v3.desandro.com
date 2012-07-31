@@ -97,7 +97,8 @@ module.exports = function(grunt) {
     var done = this.async();
     grunt.utils.spawn({
       cmd: 'jekyll'
-    }, function() {
+    }, function( err, result ) {
+      grunt.log.write( result.cyan );
       done();
     });
   });
