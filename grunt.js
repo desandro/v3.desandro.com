@@ -92,26 +92,35 @@ module.exports = function(grunt) {
     grunt.file.write( index, revised );
   });
 
-  // grunt version of `jekyll`
-  grunt.registerTask( 'jekyll', 'Runs jekyll', function() {
-    var done = this.async();
+  // shell command helper
+  function spawn( command, _this, options ) {
+    // convert to array
+    if ( typeof command === 'string' ) {
+      command = command.split(' ');
+    }
+    var done = _this.async();
     grunt.utils.spawn({
-      cmd: 'jekyll'
+      cmd: command.splice( 0, 1 ),
+      args: command,
+      opts: options
     }, function( err, result ) {
+      if ( err ) {
+        grunt.log.error( err );
+        return;
+      }
       grunt.log.write( result.cyan );
       done();
     });
+  }
+
+  // grunt version of `jekyll`
+  grunt.registerTask( 'jekyll', 'Runs jekyll', function() {
+    spawn( 'jekyll', this );
   });
 
   // grunt version of `rm -rf _site`
   grunt.registerTask( 'removeSite', function() {
-    var done = this.async();
-    grunt.utils.spawn({
-      cmd: 'rm',
-      args: ['-rf', '_site']
-    }, function() {
-      done();
-    });
+    spawn( 'rm -rf _site', this );
   });
 
   grunt.registerTask( 'copyHtaccess', function() {
