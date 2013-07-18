@@ -1,0 +1,9 @@
+{
+  "name": "v3.desandro.com",
+  "version": "2.0.0",
+  "description": "JavaScript is all like _You images done yet or what?_",
+  "main": "index.mustache",
+  "dependencies": {
+    "requestanimationframe": "git://gist.github.com/1866474.git"
+  }
+}

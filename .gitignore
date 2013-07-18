@@ -1,2 +1,4 @@
 _site/
+build/
+bower_components/
 js/scripts-all*.js
