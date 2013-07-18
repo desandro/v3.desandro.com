@@ -1,4 +1,5 @@
 _site/
 build/
 bower_components/
+node_modules/
 js/scripts-all*.js

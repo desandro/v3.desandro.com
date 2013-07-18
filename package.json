@@ -1,0 +1,25 @@
+{
+  "name": "v3.desandro.com",
+  "version": "2.0.0",
+  "description": "personal site for Dave DeSandro",
+  "main": "Gruntfile.js",
+  "dependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt-contrib-uglify": "~0.2.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/desandro/v3.desandro.com.git"
+  },
+  "author": "David DeSandro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/desandro/v3.desandro.com/issues"
+  }
+}
