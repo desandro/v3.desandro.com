@@ -1,0 +1,73 @@
+---
+
+
+---
+<!doctype html class="no-js">
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <!-- Thanks for taking a look :)
+    Read all about it: https://github.com/desandro/v3.desandro.com -->
+
+  <title>David DeSandro</title>
+
+  <meta name="viewport" content="width=device-width" />
+
+  <link href="style.css" rel="stylesheet" />
+
+  <script src="js/modernizr.min.js"></script>
+
+<!-- <script src="/mint/?js"></script> -->
+
+</head>
+<body>
+
+<div id="intro">
+  <img src="img/david-desandro-smiling.jpg" alt="David DeSandro" />
+  <h1 class="split">David DeSandro</h1>
+  <p class="split">Web designer at Twitter</p>
+  <p class="split">Brooklyn, NY</p>
+  <p class="credo copy split">Being creative and making things keeps me happy</p>
+</div>
+
+{{#each sections}}
+  <section>
+    <h2 class="split">{{ title }}</h2>
+    <ul>
+      {{#each items}}
+        <li><a class="split" href="{{ item.link }}">{{ item.title }}</a></li>
+      {{/each}}
+    </ul>
+  </section>
+
+{{/each}}
+
+<section id="contact">
+  <h2 class="split">Contact</h2>
+  <div class="copy">
+    <p><span>I am happily employed full-time at Twitter and therefore not available for freelance projects.</span></p>
+
+    <p>
+      <strong><span>Trouble with Masonry, Isotope, or Packery?</span></strong>
+      <span>Sorry, but I am not available for personal support requests. </span>
+    </p>
+  </div>
+  <p><a href="#" id="email" class="split">Got it. What’s the email?</a></p>
+</section>
+
+<script src="js/scripts-all.121101051158.js"></script>
+
+<script>
+  var _gaq = [['_setAccount', 'UA-592624-3'], ['_trackPageview']];
+  (function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = ('https:' == location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+  })(document, 'script');
+</script>
+
+</body>
+</html>
