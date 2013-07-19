@@ -1,3 +1,8 @@
+/**
+ * reads index.mustache and data.yml
+ * to create build/index.html
+**/
+
 /*jshint node: true, strict: false */
 
 var handlebars = require('handlebars');

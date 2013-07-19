@@ -1,5 +1,5 @@
 
-/*jshint node: true*/
+/*jshint node: true, strict: false*/
 
 module.exports = function( grunt ) {
 
@@ -12,7 +12,10 @@ module.exports = function( grunt ) {
   ];
 
   // add bower scripts
-  var concatScripts = [ 'bower_components/requestanimationframe/requestanimationframe.js' ]
+  var bowerScripts = [
+    'bower_components/requestanimationframe/requestanimationframe.js'
+  ];
+  var concatScripts = bowerScripts
     .concat( scripts );
 
   grunt.initConfig({
@@ -35,14 +38,41 @@ module.exports = function( grunt ) {
         src: concatScripts,
         dest: 'build/js/scripts.min.js'
       }
+    },
+
+    copy: {
+      main: {
+        src: [ 'style.css', 'img/*', 'js/*' ],
+        dest: 'build/'
+      },
+      // TODO use Bower to get main files to copy over
+      bowerScripts: {
+        files: [
+          {
+            expand: true, // enable dynamic options
+            src: [ '*/*.js' ],
+            cwd: 'bower_components/', // set cwd, excludes it in build path
+            dest: 'build/js/',
+            flatten: true
+          }
+        ]
+      }
     }
 
   });
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   // load all tasks in tasks/
   grunt.loadTasks('tasks/');
+
+  grunt.registerTask( 'default', [
+    'jshint',
+    'uglify',
+    'templating',
+    'copy'
+  ]);
 
 };
