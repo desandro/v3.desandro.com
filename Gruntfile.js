@@ -41,8 +41,19 @@ module.exports = function( grunt ) {
     },
 
     copy: {
-      main: {
-        src: [ 'style.css', 'img/*', 'js/*' ],
+      'public': {
+        files: [
+          {
+            expand: true,
+            cwd: 'public',
+            src: '**',
+            dest: 'build/',
+            dot: true
+          }
+        ]
+      },
+      scripts: {
+        src: [ 'js/*' ],
         dest: 'build/'
       },
       // TODO use Bower to get main files to copy over
