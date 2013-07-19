@@ -7,7 +7,9 @@
     "grunt": "~0.4.1",
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-jshint": "~0.6.0",
-    "grunt-contrib-uglify": "~0.2.2"
+    "grunt-contrib-uglify": "~0.2.2",
+    "handlebars": "~1.0.12",
+    "js-yaml": "~2.1.0"
   },
   "devDependencies": {},
   "scripts": {

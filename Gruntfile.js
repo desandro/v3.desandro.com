@@ -18,13 +18,7 @@ module.exports = function( grunt ) {
   grunt.initConfig({
 
     jshint: {
-      site: [
-        'js/base.js',
-        'js/sparkleshine.js',
-        'js/charparticle.js',
-        'js/typekit.js',
-        'js/init.js'
-      ],
+      site: scripts,
       options: grunt.file.readJSON('.jshintrc')
     },
 
@@ -48,6 +42,7 @@ module.exports = function( grunt ) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-
+  // load all tasks in tasks/
+  grunt.loadTasks('tasks/');
 
 };
