@@ -5,16 +5,20 @@ sections:
         link: http://masonry.desandro.com
       - title: Isotope
         link: http://isotope.metafizzy.co
+      - title: Packery
+        link: http://packery.metafizzy.co
+      - title: Draggabilly
+        link: http://draggabilly.desandro.com
+      - title: imagesLoaded
+        link: http://desandro.github.io/imagesloaded/
       - title: Close Pixelate
         link: http://close-pixelate.desandro.com
-      - title: Windex
-        link: http://desandro.com/demo/of-windex/
-      - title: imagesLoaded
-        link: http://github.com/desandro/imagesloaded/
+      # - title: Windex
+      #   link: http://desandro.com/demo/of-windex/
       - title: Neo Vision
         link: https://chrome.google.com/webstore/detail/lcckpjpfpmnojpkhlnekhclcfegepaij
-      - title: v2 Articles
-        link: http://v2.desandro.com/articles
+      # - title: v2 Articles
+      #   link: http://v2.desandro.com/articles
 
   - title: Writing
     items:
@@ -35,15 +39,15 @@ sections:
   - title: Speaking
     items:
       - title: Open source ain’t free
-        link: http://desandro.github.com/open-source-aint-free
+        link: http://desandro.github.io/open-source-aint-free
       - title: Touchy Feely Development
-        link: http://desandro.github.com/touch-feely-dev
+        link: http://desandro.github.io/touch-feely-dev
       - title: nclud.com front-end dev
-        link: http://desandro.github.com/nclud-v3-talk/
+        link: http://desandro.github.io/nclud-v3-talk/
       - title: 'Mobile Safari: Bring your machete'
-        link: http://desandro.github.com/mobile-safari-machete
+        link: http://desandro.github.io/mobile-safari-machete
       - title: Motion/Emotion
-        link: http://desandro.github.com/motion-emotion
+        link: http://desandro.github.io/motion-emotion
 
   - title: Web presence
     items:
@@ -51,8 +55,12 @@ sections:
         link: http://twitter.com/desandro
       - title: GitHub
         link: http://github.com/desandro
-      - title: Flickr
-        link: http://flickr.com/photos/nemoorange/
+      # - title: Flickr
+      #   link: http://flickr.com/photos/nemoorange/
+      - title: Dribbble
+        link: http://dribbble.com/desandro
+      - title: CodePen
+        link: http://codepen.io/desandro
       - title: Tumblr
         link: http://desandro.tumblr.com
       - title: Strava
@@ -64,6 +72,8 @@ sections:
 
   - title: Featured elsewhere
     items:
+      - title: The Industry
+        link: http://theindustry.cc/2013/07/02/an-interview-with-david-desandro/
       - title: TXP Magazine
         link: http://txpmag.com/community-spotlight/divining-david-desandro
       - title: ShopTalk Show
