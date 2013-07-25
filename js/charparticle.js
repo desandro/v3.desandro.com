@@ -19,12 +19,6 @@ DD.isCursorActive = false;
 
 var charParticles = DD.charParticles = [];
 
-// -------------------------- sniff -------------------------- //
-
-/* please forgive me for this, but Firefox is too slow to use transforms */
-
-var isFirefox = navigator.userAgent.indexOf('Firefox') !== -1;
-
 // -------------------------- CharParticle -------------------------- //
 
 var charParticleIndex = 0;
@@ -133,7 +127,7 @@ CharParticle.prototype.update = function() {
 
 };
 
-CharParticle.prototype.render = !Modernizr.csstransforms || isFirefox ?
+CharParticle.prototype.render = !Modernizr.csstransforms ?
   // absolute left/top positioning
   function() {
     this.element.style.left = this.x + 'px';
@@ -155,8 +149,6 @@ CharParticle.prototype.render = !Modernizr.csstransforms || isFirefox ?
   };
 
 // -------------------------- events -------------------------- //
-
-var isListeningForCursors = false;
 
 // ----- cursor start ----- //
 
@@ -311,6 +303,7 @@ DD.addCharParticles = function( charElems ) {
 };
 
 DD.initCharParticles = function () {
+
   // if already inited, just update positions
   if ( areCharParticlesInited ) {
     for ( var j=0, particlesLen = charParticles.length; j < particlesLen; j++ ) {
