@@ -2,7 +2,6 @@
  * sparkleShine - rainbow-ify links
 **/
 
-/*jshint asi: false, curly: true, devel: false, eqeqeq: true, forin: false, newcap: true, noempty: true, strict: true, undef: true, browser: true */
 /*global requestAnimationFrame: false */
 
 ( function( window, document, DD, undefined ) {
@@ -10,7 +9,6 @@
 'use strict';
 
 var hoveredLink;
-var hueIndex = 0;
 
 // -------------------------- sparkleShine -------------------------- //
 

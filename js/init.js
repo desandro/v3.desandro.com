@@ -2,16 +2,9 @@
  * init - start when doc ready
 **/
 
-/*jshint asi: false, curly: true, devel: false, eqeqeq: true, forin: false, newcap: true, noempty: true, strict: true, undef: true, browser: true */
-
 ( function( window, document, DD, undefined ) {
 
 'use strict';
-
-var charCount = 0;
-
-// -------------------------- setupCharElems -------------------------- //
-
 
 // -------------------------- email link -------------------------- //
 

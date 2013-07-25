@@ -2,7 +2,6 @@
  * Typekit
 **/
 
-/*jshint asi: false, curly: true, devel: false, eqeqeq: true, forin: false, newcap: true, noempty: true, strict: true, undef: true, browser: true */
 /*global Typekit: false */
 
 ( function( window, document, DD, undefined ) {
@@ -10,7 +9,7 @@
 'use strict';
 
 // how long to wait before showing fallback fonts
-var timeoutDuration = 3000;
+// var timeoutDuration = 3000;
 
 // -------------------------- Typekit -------------------------- //
 

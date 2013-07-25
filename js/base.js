@@ -14,8 +14,6 @@
  * base, get things going with utils
 **/
 
-/*jshint asi: false, curly: true, devel: false, eqeqeq: true, forin: false, newcap: true, noempty: true, strict: true, undef: true, browser: true */
-
 ( function( window, undefined ) {
 
 'use strict';

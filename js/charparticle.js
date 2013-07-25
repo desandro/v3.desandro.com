@@ -234,7 +234,7 @@ function cursorMove( cursor ) {
 
 // ----- cursor end ----- //
 
-function onMouseup( event ) {
+function onMouseup() {
   DD.isCursorActive = false;
   window.removeEventListener( 'mousemove', onMousemove, false );
   window.removeEventListener( 'mouseup', onMouseup, false );
