@@ -17,8 +17,8 @@ sections:
       #   link: http://desandro.com/demo/of-windex/
       - title: Neo Vision
         link: https://chrome.google.com/webstore/detail/lcckpjpfpmnojpkhlnekhclcfegepaij
-      # - title: v2 Articles
-      #   link: http://v2.desandro.com/articles
+      - title: Articles 2009&ndash;2012
+        link: http://v2.desandro.com/articles
 
   - title: Writing
     items:
