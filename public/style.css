@@ -96,11 +96,6 @@ li {
   margin-bottom: 0.8em;
 }
 
-#shirt img {
-  display: block;
-  width: 100%;
-}
-
 /* desktop sizing */
 @media screen and (min-width: 480px) {
 
