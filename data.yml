@@ -11,6 +11,8 @@ sections:
         link: http://draggabilly.desandro.com
       - title: imagesLoaded
         link: http://imagesloaded.desandro.com
+      - title: Breathing Halftone
+        link: http://breathing-halftone.desandro.com
       - title: Close Pixelate
         link: http://close-pixelate.desandro.com
       # - title: Windex
@@ -57,12 +59,12 @@ sections:
         link: http://github.com/desandro
       # - title: Flickr
       #   link: http://flickr.com/photos/nemoorange/
+      - title: Tumblr
+        link: http://desandro.tumblr.com
       - title: Dribbble
         link: http://dribbble.com/desandro
       - title: CodePen
         link: http://codepen.io/desandro
-      - title: Tumblr
-        link: http://desandro.tumblr.com
       - title: Strava
         link: http://app.strava.com/athletes/210990
       - title: Readernaut
@@ -72,6 +74,8 @@ sections:
 
   - title: Featured elsewhere
     items:
+      - title: Electric Objects Artist Interview
+        link: http://zine.electricobjects.com/interviews/david-desandro
       - title: The Industry
         link: http://theindustry.cc/2013/07/02/an-interview-with-david-desandro/
       - title: TXP Magazine
@@ -80,9 +84,5 @@ sections:
         link: http://shoptalkshow.com/episodes/024-with-david-desandro/
       - title: 'Unmatched Style Chat Session'
         link: http://unmatchedstyle.com/news/chat-session-david-desandro.php
-      - title: '.net Awards 2011 - Site of the Year'
-        link: http://www.netmagazine.com/features/net-awards-2011-winners
       - title: 'DaBrook Web Education Podcast'
         link: http://dabrook.org/required-listening/episode-34-dave-flippin-desandro
-      - title: 'ADCMW Fresh Face'
-        link: http://fullbleed.adcmw.org/articles/fresh-face-david-desandro/
