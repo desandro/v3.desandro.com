@@ -51,7 +51,7 @@ a:hover {
 #intro img {
   width: 140px;
   float: right;
-  border-radius: 70px 70px 0 0;
+  border-radius: 10px;
   margin: 0 0 10px 10px;
 }
 
@@ -97,7 +97,7 @@ li {
 }
 
 /* desktop sizing */
-@media screen and (min-width: 480px) {
+@media screen and (min-width: 600px) {
 
   body {
     padding: 1.0em;
@@ -109,7 +109,6 @@ li {
 
   #intro img {
     width: 200px;
-    border-radius: 100px 100px 0 0;
   }
 
   .copy { font-size: 28px; }
