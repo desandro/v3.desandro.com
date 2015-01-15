@@ -40,6 +40,8 @@ sections:
 
   - title: Speaking
     items:
+      - title: Bower introduction
+        link: https://speakerdeck.com/desandro/bower-introduction
       - title: Open source ain’t free
         link: http://desandro.github.io/open-source-aint-free
       - title: Touchy Feely Development
