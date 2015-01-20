@@ -5,6 +5,8 @@ sections:
         link: http://masonry.desandro.com
       - title: Isotope
         link: http://isotope.metafizzy.co
+      - title: Flickity
+        link: http://flickity.metafizzy.co
       - title: Packery
         link: http://packery.metafizzy.co
       - title: Draggabilly
