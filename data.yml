@@ -47,7 +47,7 @@ sections:
       - title: Open source ain’t free
         link: http://desandro.github.io/open-source-aint-free
       - title: Touchy Feely Development
-        link: http://desandro.github.io/touch-feely-dev
+        link: http://desandro.github.io/touchy-feely-dev/
       - title: nclud.com front-end dev
         link: http://desandro.github.io/nclud-v3-talk/
       - title: 'Mobile Safari: Bring your machete'
@@ -61,8 +61,8 @@ sections:
         link: http://twitter.com/desandro
       - title: GitHub
         link: http://github.com/desandro
-      # - title: Flickr
-      #   link: http://flickr.com/photos/nemoorange/
+      - title: Flickr
+        link: http://flickr.com/photos/nemoorange/
       - title: Tumblr
         link: http://desandro.tumblr.com
       - title: Dribbble
