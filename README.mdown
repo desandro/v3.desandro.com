@@ -1,4 +1,4 @@
-# [desandro.com](http://desandro.com) v3
+# [v3.desandro.com](http://v3.desandro.com)
 
 Just a one pager. Built with [Grunt](http://gruntjs.com).
 
